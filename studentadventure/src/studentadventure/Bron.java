@@ -1,3 +1,5 @@
+package studentadventure;
+
 public abstract class Bron 
 {
 	private String name; // nazwa broni 
