@@ -1,0 +1,21 @@
+Student adventure
+
+	Student adventure to gra RPG opowiadająca o przygodach studenta. Gra ma charakter tekstowy, gdzie gracz porusza się i wpływa na świat za pomocą komend. Nasz projekt ma zawierać interfejs graficzny w postaci trzech okienek.
+
+Prototyp interfejsu graficznego: http://s24.postimg.org/3uu2ispjp/schemat.png
+
+Gra pozwalać ma na:
+- poruszanie się
+- walkę z przeciwnikami
+- wykonywanie zadań
+- zdobywanie doświadczenia
+- przechodzenie przez relatywnie rozbudowaną fabułę
+- interakcję z otaczającym światem
+- posiadanie ekwipunku
+- sprawdzanie aktualnej lokalizacji bohatera na mapie graficznej
+- odtwarzanie prostych dźwięków
+
+Repozytorium: https://github.com/azranel/studentadventure
+
+
+Autorzy: Bartosz Łęcki (azranel), Karolina Kowalik (kowcia), Katarzyna Gronowska (hoggar), Marcin Czainski (concquerror)
