@@ -11,7 +11,7 @@ import java.util.LinkedList;
 
 public class SQLManager {
 	private final static String DRIVER = "org.sqlite.JDBC";
-	private final static String DB_URL = "jdbc:sqlite:testSQL.db";
+	private final static String DB_URL = "jdbc:sqlite:gamedb.db";
 
 	private Connection conn;
 	private Statement stat;
