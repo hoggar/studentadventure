@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>wstep2.docx</name>
-			<type>1</type>
-			<location>C:/Users/bartle/Downloads/wstep2.docx</location>
-		</link>
-	</linkedResources>
 </projectDescription>
