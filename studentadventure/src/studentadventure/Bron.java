@@ -1,6 +1,6 @@
 package studentadventure;
 
-public abstract class Bron 
+public class Bron extends Przedmiot
 {
 	private String name; // nazwa broni 
 	private String description; //opis broni

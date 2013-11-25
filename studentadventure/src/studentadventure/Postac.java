@@ -1,29 +1,29 @@
 package studentadventure;
 
 public abstract class Postac {
-private String description; //opis postaci
-private String name; // nazwa
-private int hpMAX; // maksymalne punkty zycia
-private int hp; // aktualne punkty zycia
+protected String opis; //opis postaci
+protected String nazwa; // nazwa
+protected int hpMAX; // maksymalne punkty zycia
+protected int hpAkt; // aktualne punkty zycia
 
 public String toString() {
-	return "<" + name + " , " + hp + ">";
+	return "<" + nazwa + " , " + hpMAX + "\\" + hpAkt + ">";
 }
 public int getHp() {
-	return hp;
+	return hpAkt;
 }
 public void setHp(int hp) {
-	this.hp = hp;
+	this.hpAkt = hp;
 }
 
-public String getDescription() {
-	return description;
+public String getopis() {
+	return opis;
 }
-public void setDescription(String description) {
-	this.description = description;
+public void setopis(String opis) {
+	this.opis = opis;
 }
 public String about() {
-	return name + " to " + description; 
+	return nazwa + " to " + opis; 
 }
 public int getHpMAX() {
 	return hpMAX;

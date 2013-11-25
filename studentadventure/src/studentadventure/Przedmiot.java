@@ -1,27 +1,27 @@
 package studentadventure;
 
 public abstract class Przedmiot {
-	private String name; // nazwa przedmiotu
-	private String description; //opis przedmiotu
-	private int level; //poziom przedmiotu
+	protected String nazwa; // nazwa przedmiotu
+	protected String opis; //opis przedmiotu
+	protected int level; //poziom przedmiotu
 	
 public String toString() {
-	return "Przedmiot: " + name + "ma poziom:  " + level;
+	return "Przedmiot: " + nazwa + "ma poziom:  " + level;
 	}
-public void setName(String name) {
-	this.name = name;
+public void setnazwa(String nazwa) {
+	this.nazwa = nazwa;
 	}
-public String getName() {
-	return name;
+public String getnazwa() {
+	return nazwa;
 	}
-public void setDescription(String description) {
-	this.description = description;
+public void setopis(String opis) {
+	this.opis = opis;
 	}
-public String getDescription() {
-	return description;
+public String getopis() {
+	return opis;
 	}
 public String about() {
-	return name + " to " + description; 
+	return nazwa + " to " + opis; 
 	}
 
 }
