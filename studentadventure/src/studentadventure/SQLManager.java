@@ -1,13 +1,15 @@
 package studentadventure;
 
-import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class SQLManager {
 	private final static String DRIVER = "org.sqlite.JDBC";
@@ -26,23 +28,162 @@ public class SQLManager {
 		try {
 			conn = DriverManager.getConnection(DB_URL);
 			stat = conn.createStatement();
+			System.out.println("Jest polaczenie z DB");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		createTables();
+		insertValues();
 	}
 
 	private boolean createTables() {
 		String createCommandTable = "CREATE TABLE IF NOT EXISTS command (command VARCHAR(20) NOT NULL, action VARCHAR(20) NOT NULL)";
+		String createWorldDirectionsTable = "CREATE TABLE IF NOT EXISTS WorldDirections (word VARCHAR(20) NOT NULL, WorldDirections VARCHAR(20) NOT NULL)";
 		try {
 			stat.execute(createCommandTable);
+			stat.execute(createWorldDirectionsTable);
 		} catch (SQLException e) {
 			System.err.println("Nie udalo sie stworzyc tabeli etc");
 			e.printStackTrace();
 			return false;
 		}
 		return true;
+	}
+
+	private boolean insertValues() {
+		List<String> insertCommands = new ArrayList<String>();
+		List<String> insertWorldDirectionss = new ArrayList<String>();
+
+		// Uzupelnianie list zapytaniami insert
+		insertValuesIntoInsertCommandList(insertCommands);
+		insertValuesIntoInsertWorldDirectionsList(insertWorldDirectionss);
+
+		// Wykonaj kazde zapytanie insertCommand
+		for (String actualInsertQuery : insertCommands) {
+			try {
+				stat.execute(actualInsertQuery);
+			} catch (SQLException e) {
+				System.err.println("Nie udalo sie insertowac");
+				e.printStackTrace();
+				return false;
+			}
+		}
+
+		// Wykonaj kazde zapytanie insertWorldDirections
+		for (String actualInsertQuery : insertWorldDirectionss) {
+			try {
+				stat.execute(actualInsertQuery);
+			} catch (SQLException e) {
+				System.err.println("Nie udalo sie insertowac");
+				e.printStackTrace();
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private void insertValuesIntoInsertWorldDirectionsList(List<String> list) {
+		list.add("INSERT INTO direction VALUES ('polnoc','NORTH')");
+		list.add("INSERT INTO direction VALUES ('pólnoc','NORTH')");
+		list.add("INSERT INTO direction VALUES ('połnoc','NORTH')");
+		list.add("INSERT INTO direction VALUES ('północ','NORTH')");
+		list.add("INSERT INTO direction VALUES ('pln','NORTH')");
+		list.add("INSERT INTO direction VALUES ('płn','NORTH')");
+		list.add("INSERT INTO direction VALUES ('pn','NORTH')");
+		list.add("INSERT INTO direction VALUES ('north','NORTH')");
+		list.add("INSERT INTO direction VALUES ('n','NORTH')");
+		list.add("INSERT INTO direction VALUES ('poludnie','SOUTH')");
+		list.add("INSERT INTO direction VALUES ('południe','SOUTH')");
+		list.add("INSERT INTO direction VALUES ('pld','SOUTH')");
+		list.add("INSERT INTO direction VALUES ('płd','SOUTH')");
+		list.add("INSERT INTO direction VALUES ('pd','SOUTH')");
+		list.add("INSERT INTO direction VALUES ('south','SOUTH')");
+		list.add("INSERT INTO direction VALUES ('s','SOUTH')");
+		list.add("INSERT INTO direction VALUES ('zachod','WEST')");
+		list.add("INSERT INTO direction VALUES ('zachód','WEST')");
+		list.add("INSERT INTO direction VALUES ('zach','WEST')");
+		list.add("INSERT INTO direction VALUES ('west','WEST')");
+		list.add("INSERT INTO direction VALUES ('w','WEST')");
+		list.add("INSERT INTO direction VALUES ('wschod','EAST')");
+		list.add("INSERT INTO direction VALUES ('wschód','EAST')");
+		list.add("INSERT INTO direction VALUES ('wsch','EAST')");
+		list.add("INSERT INTO direction VALUES ('east','EAST')");
+		list.add("INSERT INTO direction VALUES ('e','EAST')");
+	}
+
+	private void insertValuesIntoInsertCommandList(List<String> list) {
+		list.add("INSERT INTO command VALUES ('idz','RUCH')");
+		list.add("INSERT INTO command VALUES ('idź','RUCH')");
+		list.add("INSERT INTO command VALUES ('pojdz','RUCH')");
+		list.add("INSERT INTO command VALUES ('pójdź','RUCH')");
+		list.add("INSERT INTO command VALUES ('rusz','RUCH')");
+		list.add("INSERT INTO command VALUES ('wyrusz','RUCH')");
+		list.add("INSERT INTO command VALUES ('wyruszaj','RUCH')");
+		list.add("INSERT INTO command VALUES ('porusz','RUCH')");
+		list.add("INSERT INTO command VALUES ('poruszaj','RUCH')");
+		list.add("INSERT INTO command VALUES ('podazaj','RUCH')");
+		list.add("INSERT INTO command VALUES ('podążaj','RUCH')");
+		list.add("INSERT INTO command VALUES ('przejdz','RUCH')");
+		list.add("INSERT INTO command VALUES ('przejdź','RUCH')");
+		list.add("INSERT INTO command VALUES ('przesun','RUCH')");
+		list.add("INSERT INTO command VALUES ('przesuń','RUCH')");
+		list.add("INSERT INTO command VALUES ('rozmawiaj','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('porozmawiaj','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('powiedz','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('pogadaj','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('zagadaj','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('zagaj','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('oznajmij','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('wypowiedz','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('opowiedz','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('przepowiedz','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('odpowiedz','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('podpowiedz','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('zapowiedz','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('gadaj','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('mow','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('mów','ROZMOWA')");
+		list.add("INSERT INTO command VALUES ('walcz','WALKA')");
+		list.add("INSERT INTO command VALUES ('zabij','WALKA')");
+		list.add("INSERT INTO command VALUES ('uderz','WALKA')");
+		list.add("INSERT INTO command VALUES ('atakuj','WALKA')");
+		list.add("INSERT INTO command VALUES ('zaatakuj','WALKA')");
+		list.add("INSERT INTO command VALUES ('kontratakuj','WALKA')");
+		list.add("INSERT INTO command VALUES ('powalcz','WALKA')");
+		list.add("INSERT INTO command VALUES ('zawalcz','WALKA')");
+		list.add("INSERT INTO command VALUES ('bij','WALKA')");
+		list.add("INSERT INTO command VALUES ('zbij','WALKA')");
+		list.add("INSERT INTO command VALUES ('pobij','WALKA')");
+		
+		//Kierunki
+		list.add("INSERT INTO command VALUES ('polnoc','RUCH')");
+		list.add("INSERT INTO command VALUES ('pólnoc','RUCH')");
+		list.add("INSERT INTO command VALUES ('połnoc','RUCH')");
+		list.add("INSERT INTO command VALUES ('północ','RUCH')");
+		list.add("INSERT INTO command VALUES ('pln','RUCH')");
+		list.add("INSERT INTO command VALUES ('płn','RUCH')");
+		list.add("INSERT INTO command VALUES ('pn','RUCH')");
+		list.add("INSERT INTO command VALUES ('RUCH','RUCH')");
+		list.add("INSERT INTO command VALUES ('n','RUCH')");
+		list.add("INSERT INTO command VALUES ('poludnie','RUCH')");
+		list.add("INSERT INTO command VALUES ('południe','RUCH')");
+		list.add("INSERT INTO command VALUES ('pld','RUCH')");
+		list.add("INSERT INTO command VALUES ('płd','RUCH')");
+		list.add("INSERT INTO command VALUES ('pd','RUCH')");
+		list.add("INSERT INTO command VALUES ('RUCH','RUCH')");
+		list.add("INSERT INTO command VALUES ('s','RUCH')");
+		list.add("INSERT INTO command VALUES ('zachod','RUCH')");
+		list.add("INSERT INTO command VALUES ('zachód','RUCH')");
+		list.add("INSERT INTO command VALUES ('zach','RUCH')");
+		list.add("INSERT INTO command VALUES ('RUCH','RUCH')");
+		list.add("INSERT INTO command VALUES ('w','RUCH')");
+		list.add("INSERT INTO command VALUES ('wschod','RUCH')");
+		list.add("INSERT INTO command VALUES ('wschód','RUCH')");
+		list.add("INSERT INTO command VALUES ('wsch','RUCH')");
+		list.add("INSERT INTO command VALUES ('RUCH','RUCH')");
+		list.add("INSERT INTO command VALUES ('e','RUCH')");
 	}
 
 	public boolean insertCommand(String cmdName, String actName) {
@@ -78,21 +219,70 @@ public class SQLManager {
 		return komendy;
 	}
 
-	public String interpretTask(String task) {
+	public Akcja interpretTaskForCommand(String task) {
 		Command komenda = null;
-		try {
-			ResultSet result = stat
-					.executeQuery("SELECT * FROM command WHERE command='"
-							+ task + "'");
-			komenda = new Command(result.getString("command"),
-					result.getString("action"));
-		} catch (SQLException e) {
-			System.err
-					.println("Zla interpretacja polecenia (brak slowa w slowniku?)");
-			e.printStackTrace();
-			return null;
+		String[] splitedTask = task.split("\\s");
+		for (String actualTask : splitedTask) {
+
+			try {
+				ResultSet result = stat
+						.executeQuery("SELECT COUNT(*) AS 'doesExist' FROM command WHERE command='"
+								+ actualTask.toLowerCase() + "'");
+
+				if (result.getInt("doesExist") != 0) {
+					result = stat
+							.executeQuery("SELECT * FROM command WHERE command='"
+									+ actualTask.toLowerCase() + "'");
+					komenda = new Command(result.getString("command"),
+							result.getString("action"));
+
+					for (Akcja akcja : Akcja.values()) {
+						if (akcja.toString().equalsIgnoreCase(
+								komenda.getActionName()))
+							return akcja;
+					}
+
+				}
+			} catch (SQLException e) {
+				System.err
+						.println("Zla interpretacja polecenia (brak slowa w slowniku?)");
+				e.printStackTrace();
+			}
+
 		}
-		return komenda.getActionName();
+		return Akcja.BRAK;
 	}
 
+	public WorldDirections interpretTaskForDirection(String task) {
+		Direction kierunek = null;
+		String[] splitedTask = task.split("\\s");
+		for (String actualTask : splitedTask) {
+
+			try {
+				ResultSet result = stat
+						.executeQuery("SELECT COUNT(*) AS 'doesExist' FROM WorldDirections WHERE word='"
+								+ actualTask.toLowerCase() + "'");
+
+				if (result.getInt("doesExist") != 0) {
+					result = stat
+							.executeQuery("SELECT * FROM WorldDirections WHERE word='"
+									+ actualTask.toLowerCase() + "'");
+					kierunek = new Direction(result.getString("word"),
+							result.getString("WorldDirections"));
+
+					for (WorldDirections kierSwiata : WorldDirections.values()) {
+						if (kierunek.getDirection().equalsIgnoreCase(kierSwiata.toString()))
+							return kierSwiata;
+					}
+
+				}
+			} catch (SQLException e) {
+				System.err
+						.println("Zla interpretacja polecenia (brak slowa w slowniku?)");
+				e.printStackTrace();
+			}
+
+		}
+		return WorldDirections.BRAK;
+	}
 }
