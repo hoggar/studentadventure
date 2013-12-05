@@ -24,7 +24,6 @@ public class Start {
 		switch (kierunek) {
 		case NORTH:
 			actX = actX - 1;
-			System.out.println(actX);
 			if (actX >= 0) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.NORTH);
@@ -35,8 +34,7 @@ public class Start {
 			break;
 		case SOUTH:
 			actX = actX + 1;
-			System.out.println(actX);
-			if (actY <= WIELKOSC_MAPY_X) {
+			if (actX < WIELKOSC_MAPY_X) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.SOUTH);
 				} else
@@ -46,7 +44,6 @@ public class Start {
 			break;
 		case WEST:
 			actY = actY - 1;
-			System.out.println(actY);
 			if (actY >= 0) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.WEST);
@@ -57,8 +54,7 @@ public class Start {
 			break;
 		case EAST:
 			actY = actY + 1;
-			System.out.println(actY);
-			if (actY <= WIELKOSC_MAPY_Y) {
+			if (actY < WIELKOSC_MAPY_Y) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.EAST);
 				} else
@@ -105,8 +101,6 @@ public class Start {
 			} else
 				moznoscChodzenia = false;
 
-			System.out.println(wspolX + " " + wspolY + " \n" + opisKafelka + " \n" + moznoscChodzenia + "\n");
-
 			mapa[wspolX][wspolY] = new Tile(wspolX, wspolY, opisKafelka,
 					moznoscChodzenia);
 			
@@ -119,17 +113,16 @@ public class Start {
 	private static void gra() {
 		wczytajMape();
 		System.out
-				.println("\"...i oto właśnie drodzy państwo jest transformata Fouriera\"\n"
+				.println("\"...i oto właśnie drodzy państwo jest transformata Fouriera\"\n\n"
 						+ "'Boże co za nudy'\n"
 						+ "'Ciekawe jak kiedyś uczył profesor'\n"
 						+ "*Myśli intensywnie*\n"
 						+ "'Wiem, zbuduje wehikuł czasu!\n"
 						+ "'Ale najpierw potrzebuję urlopu dziekańskiego\n"
-						+ "'Muszę iść do dziekanatu!'");
+						+ "'Muszę iść do dziekanatu!'\n");
 
 		while (true) {
-			System.out.println(bohater.getX() + " " + bohater.getY());
-			System.out.println(mapa[bohater.getX()][bohater.getY()].getOpis());
+			System.out.println(mapa[bohater.getX()][bohater.getY()].getOpis()+ " \n");
 			System.out.println("Podaj polecenie:");
 			String polecenie = czytaczPolecen.nextLine();
 			Akcja zPolecenia = sqlmanager.interpretTaskForCommand(polecenie);
