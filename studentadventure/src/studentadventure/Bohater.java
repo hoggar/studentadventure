@@ -2,6 +2,9 @@ package studentadventure;
 
 import java.util.List;
 
+import java.awt.Image;
+import javax.imageio.ImageIO;
+
 public class Bohater extends Postac {
 	private int x, y; // współrzędne bohatera
 	private int mpAkt; // aktualne punkty many
@@ -11,6 +14,8 @@ public class Bohater extends Postac {
 	private int INT; // ilosc punktow inteligencji
 	private int END; // ilosc punktow wytrzymalosci
 	private int CHAR; // ilosc punktow charyzmy
+	//private int Image obrazekPostaci;
+	
 	private List<Przedmiot> posiadanePrzedmioty;
 
 	public String statystyki() {
@@ -19,6 +24,10 @@ public class Bohater extends Postac {
 				+ "   INT: " + INT + "\n" + "END: " + END + "   CHAR: " + CHAR;
 		return temp;
 	}
+	
+	//public Bohater() {
+	//	obrazekPostaci = ImageIO.read(getClass().getResource("./images/Untitled.png"));
+	//}
 
 	public String ekwipunek() {
 		String temp = null;
