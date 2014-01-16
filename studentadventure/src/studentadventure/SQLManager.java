@@ -17,16 +17,17 @@ public class SQLManager {
 	private final static String DRIVER = "org.sqlite.JDBC";
 	private final static String DB_URL = "jdbc:sqlite:gamedb.db";
 
-	private Connection conn;
-	private Statement stat;
+	private Connection conn = null;
+	private Statement stat = null;
+	private Statement stat2 = null;
 
 	public SQLManager() {
 		boolean doesDBFileExists = false;
 		Path pathOfDB = Paths.get("gamedb.db");
-		if(Files.exists(pathOfDB)) {
+		if (Files.exists(pathOfDB)) {
 			doesDBFileExists = true;
 		}
-		
+
 		try {
 			Class.forName(SQLManager.DRIVER);
 		} catch (ClassNotFoundException e) {
@@ -36,12 +37,13 @@ public class SQLManager {
 		try {
 			conn = DriverManager.getConnection(DB_URL);
 			stat = conn.createStatement();
+			stat2 = conn.createStatement();
 			System.out.println("Jest polaczenie z DB");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		if(!doesDBFileExists) {
+
+		if (!doesDBFileExists) {
 			createTables();
 			insertValues();
 		}
@@ -215,7 +217,35 @@ public class SQLManager {
 		depolishedTask = depolishedTask.replaceAll("ł", "l");
 		return depolishedTask;
 	}
-	
+
+	public Dialog interpretTaskForDialog2(String task) {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Dialog doZwrocenia = null;
+
+		String depolishedTask = dePolish(task);
+		String[] splitedTask = depolishedTask.split("\\s");
+		for (String actualTask : splitedTask) {
+			try {
+				statement = conn
+						.prepareStatement("SELECT * FROM dialogi WHERE slowo = ?");
+				statement.setString(1, actualTask);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					doZwrocenia = new Dialog(resultSet.getString("slowo"),
+							resultSet.getString("znaczenie"));
+				}
+
+				resultSet.close();
+				statement.close();
+			} catch (SQLException e) {
+				System.err.println("Nie udalo sie zamknac");
+				e.printStackTrace();
+			}
+		}
+		return doZwrocenia;
+	}
+
 	public Dialog.Type interpretTaskForDialog(String task) {
 		Dialog dialog = null;
 		String depolishedTask = dePolish(task);
@@ -225,17 +255,27 @@ public class SQLManager {
 				ResultSet result = stat
 						.executeQuery("SELECT COUNT(*) AS 'doesExist' FROM command WHERE command='"
 								+ actualTask.toLowerCase() + "'");
-				if(result.getInt("doesExist")!=0) {
-					result = stat
+				if (result.getInt("doesExist") != 0) {
+					result.close();
+					stat.close();
+					ResultSet result2 = stat2
 							.executeQuery("SELECT * FROM dialogi WHERE slowo='"
 									+ actualTask.toLowerCase() + "'");
-					dialog = new Dialog(result.getString("slowo"), result.getString("znaczenie"));
-					
+					// if (result2.next()) {
+					String slowo = result2.getString("slowo");
+					System.out.println(slowo);
+					String znaczenie = result2.getString("znaczenie");
+					System.out.println(znaczenie);
+					dialog = new Dialog(slowo, znaczenie);
+
 					for (Dialog.Type aktDialog : Dialog.Type.values()) {
 						if (aktDialog.toString().equalsIgnoreCase(
-								dialog.getZnaczenie()))
+								dialog.getZnaczenie())) {
+							System.out.println("WESZLO");
 							return aktDialog;
+						}
 					}
+					// }
 				}
 			} catch (SQLException e) {
 				System.err.println("Brak dialogu");

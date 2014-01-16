@@ -94,6 +94,7 @@ public class Start {
 			bohater.setY(0);
 			plikNPC = new File("./files/dziekanat.boh");
 			plikMapy = new File("./files/dziekanat.map");
+			plikDialogow = new File("./files/dialogi/dziekanat.xml");
 			wczytajZasoby(plikMapy, plikNPC);
 			break;
 		}
@@ -135,9 +136,7 @@ public class Start {
 	}
 
 	public static void btnOnClick() {
-		if(bohater.isCzyRozmawia()) {
-			
-		}
+
 		String polecenie = frame.getCmdFieldText();
 		Akcja zPolecenia = sqlmanager.interpretTaskForCommand(polecenie);
 
@@ -164,7 +163,6 @@ public class Start {
 		case ROZMOWA:
 			System.out.println("UDALO SIE POROZMAWIAC");
 			bohater.setCzyRozmawia(true);
-			Start.rozmowa(polecenie);
 			break;
 		case UZYJ:
 			frame.pisz("Użyj wybranego przez siebie przedmiotu z ekwipunku.");
@@ -174,10 +172,13 @@ public class Start {
 					+ "Postaraj się nie chrapać, zwracanie na siebie uwagi strażnika nie jest najlepszym pomysłem.");
 			break;
 		case BRAK:
-			frame.pisz("Sformułuj swoje polecenie inaczej.");
+			if (bohater.isCzyRozmawia() == false)
+				frame.pisz("Sformułuj swoje polecenie inaczej.");
+			else
+				Start.rozmowa(polecenie);
 			break;
 		}
-
+		frame.czyscCmdField();
 		frame.repaint();
 	}
 
@@ -190,10 +191,23 @@ public class Start {
 				break;
 			}
 		}
-		Dialog.Type typDialogu = sqlmanager.interpretTaskForDialog(polecenie);
-		String dialogNPC = pobranieDialogu(rozmowca.nazwa, typDialogu.toString());
-		frame.pisz(dialogNPC);
-
+		Dialog dialog = null;
+		dialog = sqlmanager.interpretTaskForDialog2(polecenie);
+		if (dialog != null) {
+			String dialogNPC = pobranieDialogu(rozmowca.nazwa,
+					dialog.getZnaczenie());
+			if ((dialogNPC != null) && (!dialog.getZnaczenie().equals("ZADANIE")))
+				frame.pisz(dialogNPC);
+			else {
+				List<Quest> questBohatera = bohater.getPosiadaneQuesty();
+				for(Quest aktQuest: questBohatera) {
+					if((aktQuest.isCzyZagadka()) && 
+							(polecenie.contains(aktQuest.getDobraOdp()))) {
+						
+					} //endif
+				} //endfor
+			} //endelse
+		} //end if
 	}
 
 	private static String pobranieDialogu(String osoba, String jakiDialog) {
@@ -214,8 +228,8 @@ public class Start {
 			Element bElement = (Element) bNode;
 
 			// W pole cytowane wpisujesz który dialog chcesz
-			dialogDoZwrocenia =  bElement.getElementsByTagName(jakiDialog).item(0)
-					.getTextContent();
+			dialogDoZwrocenia = bElement.getElementsByTagName(jakiDialog)
+					.item(0).getTextContent();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

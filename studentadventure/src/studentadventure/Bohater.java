@@ -1,9 +1,10 @@
 package studentadventure;
 
-import java.util.List;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -16,8 +17,8 @@ public class Bohater extends Postac {
 	private int inteligencja; // ilosc punktow inteligencji
 	private int wytrzymalosc; // ilosc punktow wytrzymalosci
 	private int charyzma; // ilosc punktow charyzmy
+	private List<Quest> posiadaneQuesty;
 	private static Image obrazekPostaci;
-	
 	private List<Przedmiot> posiadanePrzedmioty;
 
 	public String statystyki() {
@@ -28,6 +29,8 @@ public class Bohater extends Postac {
 	}
 	
 	public Bohater() {
+		posiadaneQuesty = new LinkedList<Quest>();
+		posiadanePrzedmioty = new LinkedList<Przedmiot>();
 		sila=50;
 		exp=0;
 		inteligencja=50;
@@ -42,8 +45,16 @@ public class Bohater extends Postac {
 		}
 	}
 
+	public List<Quest> getPosiadaneQuesty() {
+		return posiadaneQuesty;
+	}
+
+	public void setPosiadaneQuesty(List<Quest> posiadaneQuesty) {
+		this.posiadaneQuesty = posiadaneQuesty;
+	}
+
 	public String ekwipunek() {
-		String temp = null;
+		String temp = "";
 		for (Przedmiot aktPrzedmiot : posiadanePrzedmioty) {
 			temp.concat(aktPrzedmiot.getnazwa());
 			temp.concat("\n");

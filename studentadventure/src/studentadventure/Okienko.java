@@ -46,6 +46,7 @@ public class Okienko extends JFrame {
 		log = new JTextArea();
 		scrollPane.setViewportView(log);
 		log.setEditable(false);
+		log.setWrapStyleWord(true);
 		
 		cmdField = new JTextField();
 		cmdField.setBounds(12, 493, 305, 19);
@@ -76,6 +77,10 @@ public class Okienko extends JFrame {
 	            e.getAdjustable().setValue(e.getAdjustable().getMaximum());  
 	        }
 	    });
+	}
+	
+	public void czyscCmdField() {
+		cmdField.setText("");
 	}
 	
 	public String getCmdFieldText() {
