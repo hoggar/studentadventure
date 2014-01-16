@@ -1,30 +1,69 @@
 package studentadventure;
 
 public abstract class Postac {
-protected String nazwa; // nazwa
-protected int hpMAX; // maksymalne punkty zycia
-protected int hpAkt; // aktualne punkty zycia
+	protected int x, y;
+	protected String nazwa; // nazwa
+	protected int hpMAX, hpAkt; // maksymalne punkty zycia
+	protected boolean walecznosc;
+	
+	public boolean isWalecznosc() {
+		return walecznosc;
+	}
 
-public String toString() {
-	return "<" + getNazwa() + " , " + hpMAX + "\\" + hpAkt + ">";
-}
-public int getHp() {
-	return hpAkt;
-}
-public void setHp(int hp) {
-	this.hpAkt = hp;
-}
-public int getHpMAX() {
-	return hpMAX;
-}
-public void setHpMAX(int hpMAX) {
-	this.hpMAX = hpMAX;
-}
-public String getNazwa() {
-	return nazwa;
-}
-public void setNazwa(String nazwa) {
-	this.nazwa = nazwa;
-}
+	public void setWalecznosc(boolean walecznosc) {
+		this.walecznosc = walecznosc;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getHpAkt() {
+		return hpAkt;
+	}
+
+	public void setHpAkt(int hpAkt) {
+		this.hpAkt = hpAkt;
+	}
+
+	public String toString() {
+		return "<" + getNazwa() + " , " + hpMAX + "\\" + hpAkt + ">";
+	}
+
+	public int getHp() {
+		return hpAkt;
+	}
+
+	public void setHp(int hp) {
+		this.hpAkt = hp;
+	}
+
+	public int getHpMAX() {
+		return hpMAX;
+	}
+
+	public void setHpMAX(int hpMAX) {
+		this.hpMAX = hpMAX;
+	}
+
+	public String getNazwa() {
+		return nazwa;
+	}
+
+	public void setNazwa(String nazwa) {
+		this.nazwa = nazwa;
+	}
 
 }

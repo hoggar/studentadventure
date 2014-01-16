@@ -1,33 +1,46 @@
 package studentadventure;
 
 import java.util.List;
-
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 public class Bohater extends Postac {
-	private int x, y; // współrzędne bohatera
+	private boolean czyRozmawia;
 	private int mpAkt; // aktualne punkty many
 	private int mpMAX; // maksymalne punkty many
-	private int EXP; // ilosc posiadanych punktow doswiadczenia
-	private int STR; // ilosc punktow sily
-	private int INT; // ilosc punktow inteligencji
-	private int END; // ilosc punktow wytrzymalosci
-	private int CHAR; // ilosc punktow charyzmy
-	//private int Image obrazekPostaci;
+	private int exp; // ilosc posiadanych punktow doswiadczenia
+	private int sila; // ilosc punktow sily
+	private int inteligencja; // ilosc punktow inteligencji
+	private int wytrzymalosc; // ilosc punktow wytrzymalosci
+	private int charyzma; // ilosc punktow charyzmy
+	private static Image obrazekPostaci;
 	
 	private List<Przedmiot> posiadanePrzedmioty;
 
 	public String statystyki() {
 		String temp = "HP: " + hpAkt + "\\" + hpMAX + "\n" + "MP: " + mpAkt
-				+ "\\" + mpMAX + "\n" + "EXP: " + EXP + "\n" + "STR: " + STR
-				+ "   INT: " + INT + "\n" + "END: " + END + "   CHAR: " + CHAR;
+				+ "\\" + mpMAX + "\n" + "EXP: " + exp + "\n" + "STR: " + sila
+				+ "   INT: " + inteligencja + "\n" + "END: " + wytrzymalosc + "   CHAR: " + charyzma;
 		return temp;
 	}
 	
-	//public Bohater() {
-	//	obrazekPostaci = ImageIO.read(getClass().getResource("./images/Untitled.png"));
-	//}
+	public Bohater() {
+		sila=50;
+		exp=0;
+		inteligencja=50;
+		wytrzymalosc=50;
+		charyzma=50;
+		hpMAX=100+10*wytrzymalosc;
+		try {
+			obrazekPostaci = ImageIO.read(new File("./files/bohater.gif"));
+		} catch (IOException e) {
+			System.err.println("Bohater nie ma obrazka");
+			e.printStackTrace();
+		}
+	}
 
 	public String ekwipunek() {
 		String temp = null;
@@ -41,16 +54,16 @@ public class Bohater extends Postac {
 	public void ruch(WorldDirections kierunek) {
 		switch (kierunek) {
 		case NORTH:
-			x = x - 1;
-			break;
-		case SOUTH:
-			x = x + 1;
-			break;
-		case WEST:
 			y = y - 1;
 			break;
-		case EAST:
+		case SOUTH:
 			y = y + 1;
+			break;
+		case WEST:
+			x = x - 1;
+			break;
+		case EAST:
+			x = x + 1;
 			break;
 		}
 	}
@@ -63,44 +76,12 @@ public class Bohater extends Postac {
 		this.posiadanePrzedmioty = posiadanePrzedmioty;
 	}
 
-	public int getCHAR() {
-		return CHAR;
+	public int getMpAkt() {
+		return mpAkt;
 	}
 
-	public void setCHAR(int cHAR) {
-		CHAR = cHAR;
-	}
-
-	public int getEND() {
-		return END;
-	}
-
-	public void setEND(int eND) {
-		END = eND;
-	}
-
-	public int getINT() {
-		return INT;
-	}
-
-	public void setINT(int iNT) {
-		INT = iNT;
-	}
-
-	public int getSTR() {
-		return STR;
-	}
-
-	public void setSTR(int sTR) {
-		STR = sTR;
-	}
-
-	public int getEXP() {
-		return EXP;
-	}
-
-	public void setEXP(int eXP) {
-		EXP = eXP;
+	public void setMpAkt(int mpAkt) {
+		this.mpAkt = mpAkt;
 	}
 
 	public int getMpMAX() {
@@ -111,28 +92,61 @@ public class Bohater extends Postac {
 		this.mpMAX = mpMAX;
 	}
 
-	public int getMpAkt() {
-		return mpAkt;
+	public int getExp() {
+		return exp;
 	}
 
-	public void setMpAkt(int mpAkt) {
-		this.mpAkt = mpAkt;
+	public void setExp(int exp) {
+		this.exp = exp;
 	}
 
-	public int getY() {
-		return y;
+	public int getSila() {
+		return sila;
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public void setSila(int sila) {
+		this.sila = sila;
 	}
 
-	public int getX() {
-		return x;
+	public int getInteligencja() {
+		return inteligencja;
 	}
 
-	public void setX(int x) {
-		this.x = x;
+	public void setInteligencja(int inteligencja) {
+		this.inteligencja = inteligencja;
 	}
+
+	public int getWytrzymalosc() {
+		return wytrzymalosc;
+	}
+
+	public void setWytrzymalosc(int wytrzymalosc) {
+		this.wytrzymalosc = wytrzymalosc;
+	}
+
+	public int getCharyzma() {
+		return charyzma;
+	}
+
+	public void setCharyzma(int charyzma) {
+		this.charyzma = charyzma;
+	}
+
+	public static Image getObrazekPostaci() {
+		return obrazekPostaci;
+	}
+
+	public static void setObrazekPostaci(Image obrazekPostaci) {
+		Bohater.obrazekPostaci = obrazekPostaci;
+	}
+	
+	public boolean isCzyRozmawia() {
+		return czyRozmawia;
+	}
+
+	public void setCzyRozmawia(boolean czyRozmawia) {
+		this.czyRozmawia = czyRozmawia;
+	}
+
 
 }
