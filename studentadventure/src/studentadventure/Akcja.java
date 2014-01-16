@@ -10,5 +10,5 @@ public enum Akcja {
 	ROZMOWA,
 	UZYJ,
 	ODPOCZYNEK,
-	BRAK
+	BRAK, POKAZ
 }

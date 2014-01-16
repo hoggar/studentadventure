@@ -55,10 +55,22 @@ public class Bohater extends Postac {
 
 	public String ekwipunek() {
 		String temp = "";
+		if(posiadanePrzedmioty.size()!=0) {
 		for (Przedmiot aktPrzedmiot : posiadanePrzedmioty) {
-			temp.concat(aktPrzedmiot.getnazwa());
-			temp.concat("\n");
+			temp=temp+aktPrzedmiot.getnazwa() + " : " + aktPrzedmiot.getopis();
+			temp=temp+"\n";
 		}
+		} else temp=temp+"Brak przedmiotow\n";
+		return temp;
+	}
+	
+	public String questy() {
+		String temp = "";
+		if(posiadaneQuesty.size()!=0) {
+		for(Quest aktQuest : posiadaneQuesty) {
+			temp=temp+aktQuest.getNazwa() + "\nCEL: " + aktQuest.getCel() + "\n";
+		}
+		} else temp=temp+"Brak questow/zadan\n";
 		return temp;
 	}
 

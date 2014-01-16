@@ -171,6 +171,14 @@ public class Start {
 			frame.pisz("Odpocznij tu przez chwilę. Wszystko wokół staje się odległe i nieistotne, zapadasz w głęboki sen.\n"
 					+ "Postaraj się nie chrapać, zwracanie na siebie uwagi strażnika nie jest najlepszym pomysłem.");
 			break;
+		case POKAZ:
+			Pokazywanie coPokazac = sqlmanager.interpretTaskForPokazywanie(polecenie);
+			if(coPokazac.getZnaczenie().equalsIgnoreCase("PRZEDMIOTY")) {
+				frame.pisz(bohater.ekwipunek());
+			} else if(coPokazac.getZnaczenie().equalsIgnoreCase("QUESTY")) {
+				frame.pisz(bohater.questy());
+			}
+			break;
 		case BRAK:
 			if (bohater.isCzyRozmawia() == false)
 				frame.pisz("Sformułuj swoje polecenie inaczej.");
@@ -196,18 +204,30 @@ public class Start {
 		if (dialog != null) {
 			String dialogNPC = pobranieDialogu(rozmowca.nazwa,
 					dialog.getZnaczenie());
-			if ((dialogNPC != null) && (!dialog.getZnaczenie().equals("ZADANIE")))
-				frame.pisz(dialogNPC);
-			else {
-				List<Quest> questBohatera = bohater.getPosiadaneQuesty();
-				for(Quest aktQuest: questBohatera) {
-					if((aktQuest.isCzyZagadka()) && 
-							(polecenie.contains(aktQuest.getDobraOdp()))) {
-						
-					} //endif
-				} //endfor
-			} //endelse
-		} //end if
+			if (dialogNPC != null) {
+				if (dialog.getZnaczenie().equals("ZADANIE")) {
+					boolean czyPosiada = false;
+					for(Quest aktQuest: bohater.getPosiadaneQuesty()) {
+						if(aktQuest.getNazwa().contains("dziekanatu"))
+							czyPosiada = true;
+					}
+					if(!czyPosiada) {
+						frame.pisz(dialogNPC);
+						bohater.getPosiadaneQuesty().add(new Quest(1));
+					}
+				} else if (dialog.getZnaczenie().equals("ODPOWIEDZ")) {
+					frame.pisz("SUKCES");
+					for (Quest aktQuest : bohater.getPosiadaneQuesty()) {
+						if ((aktQuest.isCzyZagadka())
+								&& (polecenie.contains(aktQuest.getDobraOdp()))) {
+							frame.pisz(dialogNPC);
+							bohater.getPosiadanePrzedmioty().add(aktQuest.getNagroda());
+							bohater.getPosiadaneQuesty().remove(aktQuest);
+						}
+					} 
+				} else frame.pisz(dialogNPC);
+			}
+		} 
 	}
 
 	private static String pobranieDialogu(String osoba, String jakiDialog) {

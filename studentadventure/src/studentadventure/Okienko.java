@@ -39,14 +39,13 @@ public class Okienko extends JFrame {
 		contentPane.add(mapa);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setAutoscrolls(true);
+		//scrollPane.setAutoscrolls(true);
 		scrollPane.setBounds(12, 327, 422, 154);
 		contentPane.add(scrollPane);
 		
 		log = new JTextArea();
 		scrollPane.setViewportView(log);
 		log.setEditable(false);
-		log.setWrapStyleWord(true);
 		
 		cmdField = new JTextField();
 		cmdField.setBounds(12, 493, 305, 19);
@@ -72,11 +71,12 @@ public class Okienko extends JFrame {
 		cmdField.setText("");
 		
 		//Scrollowanie do dolu loga
+		/*
 		scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {  
 	        public void adjustmentValueChanged(AdjustmentEvent e) {  
 	            e.getAdjustable().setValue(e.getAdjustable().getMaximum());  
 	        }
-	    });
+	    }); */
 	}
 	
 	public void czyscCmdField() {

@@ -218,6 +218,32 @@ public class SQLManager {
 		return depolishedTask;
 	}
 
+	public Pokazywanie interpretTaskForPokazywanie(String task) {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Pokazywanie doZwrocenia = null;
+
+		String depolishedTask = dePolish(task);
+		String[] splitedTask = depolishedTask.split("\\s");
+		for (String actualTask : splitedTask) {
+			try {
+				statement = conn
+						.prepareStatement("SELECT * FROM pokazywanie WHERE nazwa = ?");
+				statement.setString(1, actualTask);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					doZwrocenia = new Pokazywanie(resultSet.getString("nazwa"), resultSet.getString("znaczenie"));
+				}
+				resultSet.close();
+				statement.close();
+			} catch (SQLException e) {
+				System.err.println("Nie udalo sie zamknac");
+				e.printStackTrace();
+			}
+		}
+		return doZwrocenia;
+	}
+	
 	public Dialog interpretTaskForDialog2(String task) {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
