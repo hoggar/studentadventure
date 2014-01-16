@@ -45,6 +45,7 @@ public class Okienko extends JFrame {
 		
 		log = new JTextArea();
 		scrollPane.setViewportView(log);
+		log.setWrapStyleWord(true);
 		log.setEditable(false);
 		
 		cmdField = new JTextField();

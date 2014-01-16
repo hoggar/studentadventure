@@ -192,6 +192,8 @@ public class Start {
 
 	private static void rozmowa(String polecenie) {
 		NPC rozmowca = null;
+		
+		//Wyszukiwanie NPC dookoła bohatera
 		for (NPC aktPostac : postacieNiezalezne) {
 			if ((Math.abs(bohater.getX() - aktPostac.getX()) <= 1)
 					|| (Math.abs(bohater.getY() - aktPostac.getY()) <= 1)) {
@@ -199,12 +201,16 @@ public class Start {
 				break;
 			}
 		}
+		
+		//Wyszukiwanie rodzaju dialogu w DB
 		Dialog dialog = null;
 		dialog = sqlmanager.interpretTaskForDialog2(polecenie);
 		if (dialog != null) {
+			//Pobieranie dialogu z pliku XML
 			String dialogNPC = pobranieDialogu(rozmowca.nazwa,
 					dialog.getZnaczenie());
 			if (dialogNPC != null) {
+				//Jeśli jest to ZADANIE
 				if (dialog.getZnaczenie().equals("ZADANIE")) {
 					boolean czyPosiada = false;
 					for(Quest aktQuest: bohater.getPosiadaneQuesty()) {
@@ -214,7 +220,9 @@ public class Start {
 					if(!czyPosiada) {
 						frame.pisz(dialogNPC);
 						bohater.getPosiadaneQuesty().add(new Quest(1));
-					} else if (dialog.getZnaczenie().equals("ODPOWIEDZ")) {
+					}
+				}	else if (dialog.getZnaczenie().equals("ODPOWIEDZ")) {
+					//Jeśli jest to ODPOWIEDZ na zagadkę
 					frame.pisz("SUKCES");
 					for (Quest aktQuest : bohater.getPosiadaneQuesty()) {
 						if ((aktQuest.isCzyZagadka())
@@ -224,7 +232,7 @@ public class Start {
 							bohater.getPosiadaneQuesty().remove(aktQuest);
 						}
 					} 
-				} else frame.pisz(dialogNPC);
+				} else frame.pisz(dialogNPC); //Każdy inny przypadek
 			}
 		} 
 	}
