@@ -1,0 +1,46 @@
+﻿<?xml version="1.0"?>
+<Dialogi>
+	<dziekanat>
+		<POWITANIE>Witam, w czym mogę Ci pomóc?</POWITANIE>
+		<ZADANIE>Rozumiem, jednak urlop dziekański to nie jest byle co. Muszę mieć pewność czy na niego zasługujesz. Spróbuj rozwiązać tę łamigłówkę, jeżeli Ci się uda, dostaniesz urlop dziekański. Pamiętaj tylko, że musisz podać poprawną odpowiedź za pierwszym razem. Zastanów się dobrze, czasu masz sporo.</ZADANIE>
+		<PYTANIE1>Znasz już poprawną odpowiedź?</PYTANIE1>
+        <PYTANIE2>Widzę, że wróciłeś, podasz mi tym razem poprawną odpowiedź, czy potrzebujesz jeszcze trochę czasu na zastanowienie się?</PYTANIE2>
+        <PYTANIE3>A więc słucham, jaka jest odpowiedź?</PYTANIE3>
+        <ZLAODP>Niestety, to nie jest dobry wynik. Spróbuj jeszcze raz, ale tym razem pomyśl</ZLAODP>
+        <ODPOWIEDZ>Brawo! Widać, że zdolny z Ciebie student! W takim razie przyznaję Ci urlop dziekański na czas Twojej pracy, powodzenia!</ODPOWIEDZ>
+        <POWITPOODP>Urlop masz już przyznany, mogę Ci jeszcze jakoś pomóc?</POWITPOODP>
+        <POZEGNANIE>Jeśli chcesz, możesz przyjść innym razem</POZEGNANIE>
+	</dziekanat>
+
+    <karczmarka>
+  		<ala>Pochwalony wędrowcze! Strawę podać, czy może wina?</ala>
+		<baba>Coż Cię sporwadza do tej mieściny? Skąd żeś tu przylazł?</baba>
+		<cyc>A więc szukasz Piekielnej Machiny?! Stoi o tam, na wzgórzu. Diabelstwo. Lepiej tam nie idź.</cyc>
+		<dada>Coż, machiny pilnuje Strażnik. Sędziwy to człowiek lecz o wielkiej sile. Ma jednak swoją słabość, lubi dobrze wypić.</dada> 
+		<elf>Jeśli wybijesz wszystkie szczury z tej piwnicy możesz zabrać butelkę wina</elf>
+		<git>Udało Ci się?</git>
+		<hak>Gratulacje, teraz idź drogą na północ, tam znajdziesz strażnika. Powodzenia!</hak>
+		<itam>Jeśli chcesz coś zjeść, zapraszam</itam>
+		<jak>Uważaj, żebyś nie rozbił butelek!</jak>
+	</karczmarka>
+
+     <straznik>
+		 <erste>Czego tu szuka? Precz stąd!</erste>
+		 <zweite>Ta piekielna istota? Dziwne to coś, nie podchodź!</zweite>
+		 <dritte>Precz stąd!</dritte>
+		 <vierte>A więc wino masz dla mnie? Ciekawe od kogo...</vierte>
+		 <funfte>Co tam chowasz?</funfte>
+		 <sehste>Karczmarka mówisz? Dobra z niej kobieta. No może tą butelkę jednak przyjmę od Ciebie.</sehste>
+		 <siebte>Coś ty za jeden? Czego chcesz?</siebte>
+	</straznik>
+
+ 	<kolumb>
+		  <Kraz>Chcesz się dostać do Nowego Świata tak? To nie takie łatwe. Podróż jest bardzo trudna. Musisz być odważny i silny</Kraz>
+		  <Kdwa>Jeśli uda Ci się pokonać jednego z moich bosmanów, możesz się zaciągnąć na statek. Jeśli nie, nie masz tu czego szukać</Kdwa>
+		  <Ktrzy>Pokonaj bosmana to będziesz mógł płynąć wraz ze mną do Nowego Świata</Ktrzy>
+		  <Kcztery>Musisz być lepszy niż oni. Pokonaj bosmana, albo tu nie wracaj</Kcztery>
+		  <Kpiec>Nadal nie spróbowałeś?</Kpiec>
+		  <Kszesc>Udało Ci się co? Miałeś szczęście, bosman jest nie w formie. Witaj w załodze!</Kszesc>
+		  <Ksiedem>Przyjdź do portu jutro o 6 rano, trzeba załadować wodę i żywność na pokład</Ksiedem>
+ 	</kolumb>
+</Dialogi>

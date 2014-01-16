@@ -214,8 +214,7 @@ public class Start {
 					if(!czyPosiada) {
 						frame.pisz(dialogNPC);
 						bohater.getPosiadaneQuesty().add(new Quest(1));
-					}
-				} else if (dialog.getZnaczenie().equals("ODPOWIEDZ")) {
+					} else if (dialog.getZnaczenie().equals("ODPOWIEDZ")) {
 					frame.pisz("SUKCES");
 					for (Quest aktQuest : bohater.getPosiadaneQuesty()) {
 						if ((aktQuest.isCzyZagadka())
