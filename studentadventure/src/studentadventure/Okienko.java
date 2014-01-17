@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ScrollPaneConstants;
 
 public class Okienko extends JFrame {
 
@@ -28,28 +29,31 @@ public class Okienko extends JFrame {
 	 */
 	public Okienko() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 460, 560);
+		setBounds(100, 100, 507, 691);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
 		mapa = new MapaPanel();
 		mapa.setBounds(82, 12, 300, 300);
 		contentPane.add(mapa);
 		
+		
 		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		//scrollPane.setAutoscrolls(true);
-		scrollPane.setBounds(12, 327, 422, 154);
+		scrollPane.setBounds(12, 327, 473, 290);
 		contentPane.add(scrollPane);
 		
 		log = new JTextArea();
 		scrollPane.setViewportView(log);
-		log.setWrapStyleWord(true);
+		log.setLineWrap(true);
 		log.setEditable(false);
 		
 		cmdField = new JTextField();
-		cmdField.setBounds(12, 493, 305, 19);
+		cmdField.setBounds(12, 629, 344, 19);
 		contentPane.add(cmdField);
 		cmdField.setColumns(10);
 		
@@ -59,7 +63,7 @@ public class Okienko extends JFrame {
 				Start.btnOnClick();
 			}
 		});
-		cmdBtn.setBounds(329, 490, 117, 25);
+		cmdBtn.setBounds(368, 626, 117, 25);
 		this.getRootPane().setDefaultButton(cmdBtn);
 		contentPane.add(cmdBtn);
 		Font logFont = new Font("Verdana", Font.PLAIN, 13);
@@ -70,7 +74,8 @@ public class Okienko extends JFrame {
 	public void pisz(String napis) {
 		log.append(napis + "\n");
 		cmdField.setText("");
-		
+		int dlugoscLoga = log.getText().length();
+		log.setCaretPosition(dlugoscLoga);
 		//Scrollowanie do dolu loga
 		/*
 		scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {  

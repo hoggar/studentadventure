@@ -9,6 +9,11 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 public class Bohater extends Postac {
+	private static final File bohaterNorth = new File("./files/bohater-north.gif");
+	private static final File bohaterSouth = new File("./files/bohater-south.gif"); 
+	private static final File bohaterWest = new File("./files/bohater-west.gif"); 
+	private static final File bohaterEast = new File("./files/bohater-east.gif"); 
+	
 	private boolean czyRozmawia;
 	private int mpAkt; // aktualne punkty many
 	private int mpMAX; // maksymalne punkty many
@@ -38,7 +43,7 @@ public class Bohater extends Postac {
 		charyzma=50;
 		hpMAX=100+10*wytrzymalosc;
 		try {
-			obrazekPostaci = ImageIO.read(new File("./files/bohater.gif"));
+			obrazekPostaci = ImageIO.read(bohaterSouth);
 		} catch (IOException e) {
 			System.err.println("Bohater nie ma obrazka");
 			e.printStackTrace();
@@ -68,26 +73,35 @@ public class Bohater extends Postac {
 		String temp = "";
 		if(posiadaneQuesty.size()!=0) {
 		for(Quest aktQuest : posiadaneQuesty) {
-			temp=temp+aktQuest.getNazwa() + "\nCEL: " + aktQuest.getCel() + "\n";
+			temp=temp+"Nazwa: "+aktQuest.getNazwa() + "\nCEL: " + aktQuest.getCel() + "\n";
 		}
 		} else temp=temp+"Brak questow/zadan\n";
 		return temp;
 	}
 
 	public void ruch(WorldDirections kierunek) {
+		try {
 		switch (kierunek) {
 		case NORTH:
 			y = y - 1;
+			obrazekPostaci=ImageIO.read(bohaterNorth);
 			break;
 		case SOUTH:
 			y = y + 1;
+			obrazekPostaci=ImageIO.read(bohaterSouth);
 			break;
 		case WEST:
 			x = x - 1;
+			obrazekPostaci=ImageIO.read(bohaterWest);
 			break;
 		case EAST:
 			x = x + 1;
+			obrazekPostaci=ImageIO.read(bohaterEast);
 			break;
+		}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

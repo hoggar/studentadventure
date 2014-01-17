@@ -46,7 +46,7 @@ public class Start {
 				} else
 					frame.pisz("'Nie moge tam isc!'");
 			} else
-				System.out.println("KONIEC MAPY!");
+				frame.pisz("Nie ma gdzie tam iść. Nawet jakbym chciał");
 			break;
 		case SOUTH:
 			actY = actY + 1;
@@ -56,7 +56,7 @@ public class Start {
 				} else
 					frame.pisz("'Nie moge tam isc!'");
 			} else
-				System.out.println("KONIEC MAPY!");
+				frame.pisz("Nie ma gdzie tam iść. Nawet jakbym chciał");
 			break;
 		case WEST:
 			actX = actX - 1;
@@ -66,7 +66,7 @@ public class Start {
 				} else
 					frame.pisz("'Nie moge tam isc!'");
 			} else
-				System.out.println("KONIEC MAPY!");
+				frame.pisz("Nie ma gdzie tam iść. Nawet jakbym chciał");
 			break;
 		case EAST:
 			actX = actX + 1;
@@ -76,7 +76,7 @@ public class Start {
 				} else
 					frame.pisz("'Nie moge tam isc!'");
 			} else
-				System.out.println("KONIEC MAPY!");
+				frame.pisz("Nie ma gdzie tam iść. Nawet jakbym chciał");
 			break;
 		default:
 			frame.pisz("Idziesz nie wiadomo gdzie. Może lepiej podaj gdzie chcesz iść.");
@@ -138,6 +138,7 @@ public class Start {
 	public static void btnOnClick() {
 
 		String polecenie = frame.getCmdFieldText();
+		polecenie = polecenie.toLowerCase();
 		Akcja zPolecenia = sqlmanager.interpretTaskForCommand(polecenie);
 
 		switch (zPolecenia) {
@@ -161,7 +162,7 @@ public class Start {
 			frame.pisz("Rozejrzyj się. Co znajduje się wokół?");
 			break;
 		case ROZMOWA:
-			System.out.println("UDALO SIE POROZMAWIAC");
+			frame.pisz("Skupiles na sobie uwage osoby z ktora chcesz porozmawiac");
 			bohater.setCzyRozmawia(true);
 			break;
 		case UZYJ:
@@ -218,12 +219,11 @@ public class Start {
 							czyPosiada = true;
 					}
 					if(!czyPosiada) {
-						frame.pisz(dialogNPC);
+						frame.pisz(dialogNPC + "\n===Otrzymales nowe zadanie===");
 						bohater.getPosiadaneQuesty().add(new Quest(1));
 					}
-				}	else if (dialog.getZnaczenie().equals("ODPOWIEDZ")) {
+				}	else if (dialog.getZnaczenie().contains("ODPOWIEDZ")) {
 					//Jeśli jest to ODPOWIEDZ na zagadkę
-					frame.pisz("SUKCES");
 					for (Quest aktQuest : bohater.getPosiadaneQuesty()) {
 						if ((aktQuest.isCzyZagadka())
 								&& (polecenie.contains(aktQuest.getDobraOdp()))) {
