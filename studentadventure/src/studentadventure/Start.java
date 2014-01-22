@@ -43,43 +43,44 @@ public class Start {
 			if (actY >= 0) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.NORTH);
+					frame.pisz("*Idziesz na północ*");
 				} else
-					frame.pisz("'Nie moge tam isc!'");
+					frame.piszBlad("'Nie moge tam isc!'");
 			} else
-				frame.pisz("Nie ma gdzie tam iść. Nawet jakbym chciał");
+				frame.piszBlad("Nie ma gdzie tam iść. Nawet jakbym chciał");
 			break;
 		case SOUTH:
 			actY = actY + 1;
 			if (actY < WIELKOSC_MAPY) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.SOUTH);
+					frame.pisz("*Idziesz na południe*");
 				} else
-					frame.pisz("'Nie moge tam isc!'");
+					frame.piszBlad("'Nie moge tam isc!'");
 			} else
-				frame.pisz("Nie ma gdzie tam iść. Nawet jakbym chciał");
+				frame.piszBlad("Nie ma gdzie tam iść. Nawet jakbym chciał");
 			break;
 		case WEST:
 			actX = actX - 1;
 			if (actX >= 0) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.WEST);
+					frame.pisz("*Idziesz na zachód*");
 				} else
-					frame.pisz("'Nie moge tam isc!'");
+					frame.piszBlad("'Nie moge tam isc!'");
 			} else
-				frame.pisz("Nie ma gdzie tam iść. Nawet jakbym chciał");
+				frame.piszBlad("Nie ma gdzie tam iść. Nawet jakbym chciał");
 			break;
 		case EAST:
 			actX = actX + 1;
 			if (actX < WIELKOSC_MAPY) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.EAST);
+					frame.pisz("*Idziesz na wschód*");
 				} else
-					frame.pisz("'Nie moge tam isc!'");
+					frame.piszBlad("'Nie moge tam isc!'");
 			} else
-				frame.pisz("Nie ma gdzie tam iść. Nawet jakbym chciał");
-			break;
-		default:
-			frame.pisz("Idziesz nie wiadomo gdzie. Może lepiej podaj gdzie chcesz iść.");
+				frame.piszBlad("Nie ma gdzie tam iść. Nawet jakbym chciał");
 			break;
 		}
 	}
@@ -162,8 +163,11 @@ public class Start {
 			frame.pisz("Rozejrzyj się. Co znajduje się wokół?");
 			break;
 		case ROZMOWA:
-			frame.pisz("Skupiles na sobie uwage osoby z ktora chcesz porozmawiac");
-			bohater.setCzyRozmawia(true);
+			if (czyNPCJestBlisko()) {
+				bohater.setCzyRozmawia(true);
+				frame.pisz("Skupiłeś uwagę postaci niezależnej");
+			} else
+				frame.pisz("Nie masz z kim rozmawiać!");
 			break;
 		case UZYJ:
 			frame.pisz("Użyj wybranego przez siebie przedmiotu z ekwipunku.");
@@ -173,12 +177,15 @@ public class Start {
 					+ "Postaraj się nie chrapać, zwracanie na siebie uwagi strażnika nie jest najlepszym pomysłem.");
 			break;
 		case POKAZ:
-			Pokazywanie coPokazac = sqlmanager.interpretTaskForPokazywanie(polecenie);
-			if(coPokazac.getZnaczenie().equalsIgnoreCase("PRZEDMIOTY")) {
-				frame.pisz(bohater.ekwipunek());
-			} else if(coPokazac.getZnaczenie().equalsIgnoreCase("QUESTY")) {
-				frame.pisz(bohater.questy());
-			}
+			Pokazywanie coPokazac = sqlmanager
+					.interpretTaskForPokazywanie(polecenie);
+			if (coPokazac != null) {
+				if (coPokazac.getZnaczenie().equalsIgnoreCase("PRZEDMIOTY")) {
+					frame.piszReszta(bohater.ekwipunek());
+				} else if (coPokazac.getZnaczenie().equalsIgnoreCase("QUESTY")) {
+					frame.piszReszta(bohater.questy());
+				}
+			} else frame.piszBlad("'Nie rozumiem'");
 			break;
 		case BRAK:
 			if (bohater.isCzyRozmawia() == false)
@@ -191,50 +198,69 @@ public class Start {
 		frame.repaint();
 	}
 
-	private static void rozmowa(String polecenie) {
-		NPC rozmowca = null;
-		
-		//Wyszukiwanie NPC dookoła bohatera
+	private static boolean czyNPCJestBlisko() {
 		for (NPC aktPostac : postacieNiezalezne) {
 			if ((Math.abs(bohater.getX() - aktPostac.getX()) <= 1)
-					|| (Math.abs(bohater.getY() - aktPostac.getY()) <= 1)) {
-				rozmowca = aktPostac;
-				break;
+					&& (Math.abs(bohater.getY() - aktPostac.getY()) <= 1)) {
+				return true;
 			}
 		}
-		
-		//Wyszukiwanie rodzaju dialogu w DB
+		return false;
+	}
+
+	private static NPC zwrocRozmowce() {
+		for (NPC aktPostac : postacieNiezalezne) {
+			if ((Math.abs(bohater.getX() - aktPostac.getX()) <= 1)
+					&& (Math.abs(bohater.getY() - aktPostac.getY()) <= 1)) {
+				return aktPostac;
+			}
+		}
+		return null;
+	}
+
+	private static void rozmowa(String polecenie) {
+		NPC rozmowca = zwrocRozmowce();
+		frame.piszDialogi("Bohater: " + polecenie);
+
+		String nazwaRozmowcy = rozmowca.getNazwa() + ": ";
+
+		// Wyszukiwanie rodzaju dialogu w DB
 		Dialog dialog = null;
-		dialog = sqlmanager.interpretTaskForDialog2(polecenie);
+		dialog = sqlmanager.interpretTaskForDialog(polecenie);
 		if (dialog != null) {
-			//Pobieranie dialogu z pliku XML
-			String dialogNPC = pobranieDialogu(rozmowca.nazwa,
+			// Pobieranie dialogu z pliku XML
+			String dialogNPC = pobranieDialogu(rozmowca.getNazwaXML(),
 					dialog.getZnaczenie());
 			if (dialogNPC != null) {
-				//Jeśli jest to ZADANIE
+				// Jeśli jest to ZADANIE
 				if (dialog.getZnaczenie().equals("ZADANIE")) {
 					boolean czyPosiada = false;
-					for(Quest aktQuest: bohater.getPosiadaneQuesty()) {
-						if(aktQuest.getNazwa().contains("dziekanatu"))
+					for (Quest aktQuest : bohater.getPosiadaneQuesty()) {
+						if (aktQuest.getNazwa().contains("dziekanatu"))
 							czyPosiada = true;
 					}
-					if(!czyPosiada) {
-						frame.pisz(dialogNPC + "\n===Otrzymales nowe zadanie===");
+					if (!czyPosiada) {
+						frame.piszDialogi(nazwaRozmowcy + dialogNPC
+								+ "\n===Otrzymales nowe zadanie===");
 						bohater.getPosiadaneQuesty().add(new Quest(1));
 					}
-				}	else if (dialog.getZnaczenie().contains("ODPOWIEDZ")) {
-					//Jeśli jest to ODPOWIEDZ na zagadkę
+				} else if (dialog.getZnaczenie().contains("ODPOWIEDZ")) {
+					// Jeśli jest to ODPOWIEDZ na zagadkę
 					for (Quest aktQuest : bohater.getPosiadaneQuesty()) {
 						if ((aktQuest.isCzyZagadka())
 								&& (polecenie.contains(aktQuest.getDobraOdp()))) {
-							frame.pisz(dialogNPC);
-							bohater.getPosiadanePrzedmioty().add(aktQuest.getNagroda());
+							frame.piszDialogi(nazwaRozmowcy + dialogNPC);
+							bohater.getPosiadanePrzedmioty().add(
+									aktQuest.getNagroda());
 							bohater.getPosiadaneQuesty().remove(aktQuest);
 						}
-					} 
-				} else frame.pisz(dialogNPC); //Każdy inny przypadek
+					}
+				} else
+					frame.piszDialogi(nazwaRozmowcy + dialogNPC); // Każdy inny
+				// przypadek
 			}
-		} 
+		} else
+			frame.piszDialogi(nazwaRozmowcy + "Nie rozumiem Pana!");
 	}
 
 	private static String pobranieDialogu(String osoba, String jakiDialog) {

@@ -62,7 +62,7 @@ public class Bohater extends Postac {
 		String temp = "";
 		if(posiadanePrzedmioty.size()!=0) {
 		for (Przedmiot aktPrzedmiot : posiadanePrzedmioty) {
-			temp=temp+aktPrzedmiot.getnazwa() + " : " + aktPrzedmiot.getopis();
+			temp=temp+ "NAZWA: " + aktPrzedmiot.getnazwa() + "\nOPIS: " + aktPrzedmiot.getopis();
 			temp=temp+"\n";
 		}
 		} else temp=temp+"Brak przedmiotow\n";

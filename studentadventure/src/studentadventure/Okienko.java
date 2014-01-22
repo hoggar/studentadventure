@@ -1,33 +1,42 @@
 package studentadventure;
 
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public class Okienko extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField cmdField;
-	private JTextArea log;
+	private JTextPane log;
 	private JScrollPane scrollPane;
 	private MapaPanel mapa;
+	
+	private Font mainFont, dialogFont, descFont;
+	private StyledDocument doc;
+	private Style style;
 
 	/**
 	 * Create the frame.
 	 */
 	public Okienko() {
+		mainFont = new Font("Verdana", Font.PLAIN, 13);
+		dialogFont = new Font("Verdana", Font.ITALIC, 13);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 507, 691);
 		contentPane = new JPanel();
@@ -47,9 +56,11 @@ public class Okienko extends JFrame {
 		scrollPane.setBounds(12, 327, 473, 290);
 		contentPane.add(scrollPane);
 		
-		log = new JTextArea();
+		log = new JTextPane();
+		doc = log.getStyledDocument();
+		style = log.addStyle("Styl gry", null);
 		scrollPane.setViewportView(log);
-		log.setLineWrap(true);
+		
 		log.setEditable(false);
 		
 		cmdField = new JTextField();
@@ -66,23 +77,59 @@ public class Okienko extends JFrame {
 		cmdBtn.setBounds(368, 626, 117, 25);
 		this.getRootPane().setDefaultButton(cmdBtn);
 		contentPane.add(cmdBtn);
-		Font logFont = new Font("Verdana", Font.PLAIN, 13);
-		log.setFont(logFont);
+		
+		log.setFont(mainFont);
 		setTitle("Student Adventure");
 	}
 	
 	public void pisz(String napis) {
-		log.append(napis + "\n");
-		cmdField.setText("");
-		int dlugoscLoga = log.getText().length();
-		log.setCaretPosition(dlugoscLoga);
-		//Scrollowanie do dolu loga
-		/*
-		scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {  
-	        public void adjustmentValueChanged(AdjustmentEvent e) {  
-	            e.getAdjustable().setValue(e.getAdjustable().getMaximum());  
-	        }
-	    }); */
+		StyleConstants.setForeground(style, Color.BLACK);
+		try {
+			doc.insertString(doc.getLength(), napis + "\n", style);
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+		}
+		czyscCmdField();
+		przesunLog();
+	}
+	
+	public void piszDialogi(String napis) {
+		StyleConstants.setForeground(style, Color.BLUE);
+		try {
+			doc.insertString(doc.getLength(), napis + "\n", style);
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+		czyscCmdField();
+		przesunLog();
+	}
+	
+	public void piszReszta(String napis) {
+		StyleConstants.setForeground(style, Color.GRAY);
+		try {
+			//doc.insertString(doc.getLength(), "\n", style);
+			doc.insertString(doc.getLength(), napis + "\n", style);
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+		czyscCmdField();
+		przesunLog();
+	}
+	
+	public void piszBlad(String napis) {
+		StyleConstants.setForeground(style, Color.RED);
+		try {
+			doc.insertString(doc.getLength(), napis + "\n", style);
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+		czyscCmdField();
+		przesunLog();
+	}
+	
+	private void przesunLog() {
+		int dlugoscPola = log.getText().length();
+		log.setCaretPosition(dlugoscPola);
 	}
 	
 	public void czyscCmdField() {

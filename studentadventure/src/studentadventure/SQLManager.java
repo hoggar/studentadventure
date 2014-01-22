@@ -233,6 +233,7 @@ public class SQLManager {
 				resultSet = statement.executeQuery();
 				if (resultSet.next()) {
 					doZwrocenia = new Pokazywanie(resultSet.getString("nazwa"), resultSet.getString("znaczenie"));
+					break;
 				}
 				resultSet.close();
 				statement.close();
@@ -244,7 +245,7 @@ public class SQLManager {
 		return doZwrocenia;
 	}
 	
-	public Dialog interpretTaskForDialog2(String task) {
+	public Dialog interpretTaskForDialog(String task) {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		Dialog doZwrocenia = null;
@@ -270,45 +271,6 @@ public class SQLManager {
 			}
 		}
 		return doZwrocenia;
-	}
-
-	public Dialog.Type interpretTaskForDialog(String task) {
-		Dialog dialog = null;
-		String depolishedTask = dePolish(task);
-		String[] splitedTask = depolishedTask.split("\\s");
-		for (String actualTask : splitedTask) {
-			try {
-				ResultSet result = stat
-						.executeQuery("SELECT COUNT(*) AS 'doesExist' FROM command WHERE command='"
-								+ actualTask.toLowerCase() + "'");
-				if (result.getInt("doesExist") != 0) {
-					result.close();
-					stat.close();
-					ResultSet result2 = stat2
-							.executeQuery("SELECT * FROM dialogi WHERE slowo='"
-									+ actualTask.toLowerCase() + "'");
-					// if (result2.next()) {
-					String slowo = result2.getString("slowo");
-					System.out.println(slowo);
-					String znaczenie = result2.getString("znaczenie");
-					System.out.println(znaczenie);
-					dialog = new Dialog(slowo, znaczenie);
-
-					for (Dialog.Type aktDialog : Dialog.Type.values()) {
-						if (aktDialog.toString().equalsIgnoreCase(
-								dialog.getZnaczenie())) {
-							System.out.println("WESZLO");
-							return aktDialog;
-						}
-					}
-					// }
-				}
-			} catch (SQLException e) {
-				System.err.println("Brak dialogu");
-				e.printStackTrace();
-			}
-		}
-		return Dialog.Type.BRAK;
 	}
 
 	public Akcja interpretTaskForCommand(String task) {
