@@ -25,6 +25,8 @@ public class Start {
 	private static Okienko frame;
 	private static File plikDialogow;
 	public static int numerPoziomu;
+	private static List<Przedmiot> przedmiotyNaMapie;
+	private static File plikPrzedmiotow;
 
 	public static void main(String[] args) {
 		numerPoziomu = 1;
@@ -116,6 +118,7 @@ public class Start {
 			bohater.setY(0);
 			plikNPC = null;
 			plikMapy = new File("./files/garaz.map");
+			plikPrzedmiotow = new File("./files/garaz.item");
 			plikDialogow = null;
 			wczytajZasoby(plikMapy, plikNPC);
 			break;
@@ -161,6 +164,25 @@ public class Start {
 				System.out.println(id);
 				postacieNiezalezne.add(new NPC(id));
 			}
+		}
+		
+		if (plikPrzedmiotow != null){
+			try{
+				czytacz = new Scanner(plikPrzedmiotow);
+			} catch (FileNotFoundException e) {
+				System.err.println("Nie uda³o siê wczytaæ pliku przedmiotów");
+				e.printStackTrace();
+			}
+			
+			while (czytacz.hasNextLine()) {
+				int x = czytacz.nextInt();
+				int y = czytacz.nextInt();
+				String nazwa = czytacz.nextLine();
+				String opis = czytacz. nextLine();
+				Przedmiot temp = new Przedmiot(x, y, nazwa, opis);
+				przedmiotyNaMapie.add(temp);
+			}
+			
 		}
 	}
 
