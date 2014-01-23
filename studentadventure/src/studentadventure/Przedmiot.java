@@ -37,5 +37,11 @@ public String getopis() {
 public String about() {
 	return nazwa + " to " + opis; 
 	}
+public int getX() {
+	return x;
+}
+public int getY() {
+	return y;
+}
 
 }

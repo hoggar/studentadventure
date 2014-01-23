@@ -187,7 +187,7 @@ public class Tile {
 				break;
 			case 8:
 				_opis = "Coœ kolorowego tam jest, musia³bym siê bli¿ej przyjrzeæ by wiedzieæ co to";
-				cMC = false;
+				cMC = true;
 				_tlo = new File(
 						"./files/images/kafelki/garaz/kulki.jpg");
 				break;

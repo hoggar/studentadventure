@@ -1,20 +1,19 @@
 package studentadventure;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import java.lang.Math;
-import javax.xml.parsers.DocumentBuilderFactory;
+
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
 import org.w3c.dom.Element;
-import static java.lang.reflect.Array.get;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class Start {
 	final static int WIELKOSC_MAPY = 10;
@@ -103,6 +102,7 @@ public class Start {
 	private static void wybierzMape(int numerMapy) {
 		File plikMapy = null;
 		File plikNPC;
+		przedmiotyNaMapie = new LinkedList<Przedmiot>();
 
 		switch (numerMapy) {
 		case 1:
@@ -110,6 +110,7 @@ public class Start {
 			bohater.setY(0);
 			plikNPC = new File("./files/dziekanat.boh");
 			plikMapy = new File("./files/dziekanat.map");
+			plikPrzedmiotow = null;
 			plikDialogow = new File("./files/dialogi/dziekanat.xml");
 			wczytajZasoby(plikMapy, plikNPC);
 			break;
@@ -175,11 +176,14 @@ public class Start {
 			}
 			
 			while (czytacz.hasNextLine()) {
-				int x = czytacz.nextInt();
-				int y = czytacz.nextInt();
+				String x = czytacz.nextLine();
+				String y = czytacz.nextLine();
 				String nazwa = czytacz.nextLine();
 				String opis = czytacz. nextLine();
-				Przedmiot temp = new Przedmiot(x, y, nazwa, opis);
+				Integer xint = new Integer(x);
+				Integer yint = new Integer(y);
+				System.out.println("x: " + x + " y: " + y + " nazwa: " + nazwa + " opis: " + opis);
+				Przedmiot temp = new Przedmiot(xint, yint, nazwa, opis);
 				przedmiotyNaMapie.add(temp);
 			}
 			
@@ -212,7 +216,38 @@ public class Start {
 			frame.pisz("Zdejmujesz z siebie wskazany element odzieÅ¼y.");
 			break;
 		case SPOJRZ:
-			frame.pisz("Rozejrzyj siÄ™. Co znajduje siÄ™ wokÃ³Å‚?");
+			WorldDirections kierunek = sqlmanager.interpretTaskForDirection(polecenie);
+			int aktX=bohater.getX();
+			int aktY=bohater.getY();
+			switch(kierunek) {
+			case NORTH:
+				if(aktY-1>=0)
+					frame.piszReszta(mapa[aktX][aktY-1].getOpis());
+				break;
+			case SOUTH:
+				if(aktY+1<WIELKOSC_MAPY)
+					frame.piszReszta(mapa[aktX][aktY+1].getOpis());
+				break;
+			case WEST:
+				if(aktX-1>=0)
+					frame.piszReszta(mapa[aktX-1][aktY].getOpis());
+				break;
+			case EAST:
+				if(aktX-1<WIELKOSC_MAPY)
+					frame.piszReszta(mapa[aktX+1][aktY].getOpis());
+				break;
+			default:
+				frame.piszReszta("Stoisz na: " + mapa[aktX][aktY].getOpis());
+				if(aktY-1>=0)
+					frame.piszReszta("\nNa pó³noc: " + mapa[aktX][aktY-1].getOpis());
+				if(aktY+1<WIELKOSC_MAPY)
+					frame.piszReszta("\nNa po³udnie: " + mapa[aktX][aktY+1].getOpis());
+				if(aktX-1>=0)
+					frame.piszReszta("\nNa Zachód: " + mapa[aktX-1][aktY].getOpis());
+				if(aktX+1<WIELKOSC_MAPY)
+					frame.piszReszta("\nNa wschód: " +mapa[aktX+1][aktY].getOpis());
+				break;
+			}
 			break;
 		case ROZMOWA:
 			if (czyNPCJestBlisko()) {
@@ -241,6 +276,14 @@ public class Start {
 				frame.piszBlad("'Nie rozumiem'");
 			break;
 		case PODNOSZENIE:
+			for(Przedmiot aktPrzedmiot : przedmiotyNaMapie) {
+				if((bohater.getX()==aktPrzedmiot.getX()) && (bohater.getY()==aktPrzedmiot.getY())) {
+					bohater.getPosiadanePrzedmioty().add(aktPrzedmiot);
+					przedmiotyNaMapie.remove(aktPrzedmiot);
+					frame.pisz("===OTRZYMALES NOWY PRZEDMIOT===\n");
+					break;
+				}
+			}
 			break;
 		case BRAK:
 			if (bohater.isCzyRozmawia() == false)
