@@ -144,7 +144,6 @@ public class Start {
 
 		switch (zPolecenia) {
 		case RUCH:
-			bohater.setCzyRozmawia(false);
 			Start.ruch(polecenie);
 			break;
 		case WALKA:
@@ -185,11 +184,12 @@ public class Start {
 				} else if (coPokazac.getZnaczenie().equalsIgnoreCase("QUESTY")) {
 					frame.piszReszta(bohater.questy());
 				}
-			} else frame.piszBlad("'Nie rozumiem'");
+			} else
+				frame.piszBlad("'Nie rozumiem'");
 			break;
 		case BRAK:
 			if (bohater.isCzyRozmawia() == false)
-				frame.pisz("Sformułuj swoje polecenie inaczej.");
+				frame.pisz("Sformu�uj swoje polecenie inaczej.");
 			else
 				Start.rozmowa(polecenie);
 			break;
@@ -248,7 +248,7 @@ public class Start {
 					// Jeśli jest to ODPOWIEDZ na zagadkę
 					for (Quest aktQuest : bohater.getPosiadaneQuesty()) {
 						if ((aktQuest.isCzyZagadka())
-								&& (polecenie.contains(aktQuest.getDobraOdp()))) {
+								&& (aktQuest.sprawdzOdpowiedz(polecenie))) {
 							frame.piszDialogi(nazwaRozmowcy + dialogNPC);
 							bohater.getPosiadanePrzedmioty().add(
 									aktQuest.getNagroda());

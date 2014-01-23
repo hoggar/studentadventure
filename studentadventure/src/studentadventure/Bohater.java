@@ -103,6 +103,7 @@ public class Bohater extends Postac {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.czyRozmawia=false;
 	}
 
 	public List<Przedmiot> getPosiadanePrzedmioty() {

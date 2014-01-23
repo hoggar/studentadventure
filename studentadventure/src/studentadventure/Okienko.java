@@ -25,7 +25,7 @@ public class Okienko extends JFrame {
 	private JTextPane log;
 	private JScrollPane scrollPane;
 	private MapaPanel mapa;
-	
+
 	private Font mainFont, dialogFont, descFont;
 	private StyledDocument doc;
 	private Style style;
@@ -36,53 +36,52 @@ public class Okienko extends JFrame {
 	public Okienko() {
 		mainFont = new Font("Verdana", Font.PLAIN, 13);
 		dialogFont = new Font("Verdana", Font.ITALIC, 13);
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 507, 691);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		
+
 		mapa = new MapaPanel();
 		mapa.setBounds(82, 12, 300, 300);
 		contentPane.add(mapa);
-		
-		
+
 		scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		//scrollPane.setAutoscrolls(true);
+		scrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		// scrollPane.setAutoscrolls(true);
 		scrollPane.setBounds(12, 327, 473, 290);
 		contentPane.add(scrollPane);
-		
+
 		log = new JTextPane();
 		doc = log.getStyledDocument();
 		style = log.addStyle("Styl gry", null);
 		scrollPane.setViewportView(log);
-		
+
 		log.setEditable(false);
-		
+
 		cmdField = new JTextField();
 		cmdField.setBounds(12, 629, 344, 19);
 		contentPane.add(cmdField);
 		cmdField.setColumns(10);
-		
+
 		JButton cmdBtn = new JButton("Wykonaj");
 		cmdBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Start.btnOnClick();
 			}
 		});
-		
+
 		cmdBtn.setBounds(368, 626, 117, 25);
 		this.getRootPane().setDefaultButton(cmdBtn);
 		contentPane.add(cmdBtn);
-		
+
 		log.setFont(mainFont);
 		setTitle("Student Adventure");
 	}
-	
+
 	public void pisz(String napis) {
 		StyleConstants.setForeground(style, Color.BLACK);
 		try {
@@ -93,7 +92,7 @@ public class Okienko extends JFrame {
 		czyscCmdField();
 		przesunLog();
 	}
-	
+
 	public void piszDialogi(String napis) {
 		StyleConstants.setForeground(style, Color.BLUE);
 		try {
@@ -104,11 +103,11 @@ public class Okienko extends JFrame {
 		czyscCmdField();
 		przesunLog();
 	}
-	
+
 	public void piszReszta(String napis) {
 		StyleConstants.setForeground(style, Color.GRAY);
 		try {
-			//doc.insertString(doc.getLength(), "\n", style);
+			// doc.insertString(doc.getLength(), "\n", style);
 			doc.insertString(doc.getLength(), napis + "\n", style);
 		} catch (BadLocationException e) {
 			e.printStackTrace();
@@ -116,7 +115,7 @@ public class Okienko extends JFrame {
 		czyscCmdField();
 		przesunLog();
 	}
-	
+
 	public void piszBlad(String napis) {
 		StyleConstants.setForeground(style, Color.RED);
 		try {
@@ -127,16 +126,16 @@ public class Okienko extends JFrame {
 		czyscCmdField();
 		przesunLog();
 	}
-	
+
 	private void przesunLog() {
 		int dlugoscPola = log.getDocument().getLength();
 		log.setCaretPosition(dlugoscPola);
 	}
-	
+
 	public void czyscCmdField() {
 		cmdField.setText("");
 	}
-	
+
 	public String getCmdFieldText() {
 		return cmdField.getText();
 	}
