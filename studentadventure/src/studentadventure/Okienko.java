@@ -128,7 +128,7 @@ public class Okienko extends JFrame {
 	}
 	
 	private void przesunLog() {
-		int dlugoscPola = log.getText().length();
+		int dlugoscPola = log.getDocument().getLength();
 		log.setCaretPosition(dlugoscPola);
 	}
 	
