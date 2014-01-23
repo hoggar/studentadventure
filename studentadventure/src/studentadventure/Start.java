@@ -32,6 +32,10 @@ public class Start {
 		Start.gra();
 	}
 
+	/**
+	 * Funkcja odpowiedzlana za poruszania siê bohatera po mapie
+	 * @param polecenie Polecenie wydane przez Gracza
+	 */
 	private static void ruch(String polecenie) {
 		int actX = bohater.getX();
 		int actY = bohater.getY();
@@ -88,6 +92,10 @@ public class Start {
 		}
 	}
 
+	/**
+	 * Funkcja s³u¿¹ca do ustawienia odpowiednich plików do obiektów
+	 * @param numerMapy Numer mapy w grze
+	 */
 	private static void wybierzMape(int numerMapy) {
 		File plikMapy = null;
 		File plikNPC;
@@ -104,6 +112,11 @@ public class Start {
 		}
 	}
 
+	/**
+	 * Funkcja odpowiedzialna za wczytywanie zasoboów z pliku do zmiennych
+	 * @param plikMapy Plik w którym znajdujê siê mapa
+	 * @param plikNPC Plik w którym znajduj¹ siê bohaterzy niezale¿ni
+	 */
 	public static void wczytajZasoby(File plikMapy, File plikNPC) {
 		Scanner czytacz = null;
 		try {
@@ -139,6 +152,9 @@ public class Start {
 		}
 	}
 
+	/**
+	 * Funkcja wyzwalana w trakcie naciœniêcia przycisku
+	 */
 	public static void btnOnClick() {
 
 		String polecenie = frame.getCmdFieldText();
@@ -201,6 +217,10 @@ public class Start {
 		frame.repaint();
 	}
 
+	/**
+	 * Przeszukiwania pól wokó³ bohatera w celu wyszukania NPC
+	 * @return Zwraca true jeœli NPC jest blisko lub false gdy nie jest
+	 */
 	private static boolean czyNPCJestBlisko() {
 		for (NPC aktPostac : postacieNiezalezne) {
 			if ((Math.abs(bohater.getX() - aktPostac.getX()) <= 1)
@@ -211,6 +231,10 @@ public class Start {
 		return false;
 	}
 
+	/**
+	 * Zwraca NPC który jest wokó³ bohatera 
+	 * @return Postaæ która jest wokó³ bohatera
+	 */
 	private static NPC zwrocRozmowce() {
 		for (NPC aktPostac : postacieNiezalezne) {
 			if ((Math.abs(bohater.getX() - aktPostac.getX()) <= 1)
@@ -220,7 +244,11 @@ public class Start {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Rozmowê z NPC w grze
+	 * @param polecenie Polecenie wydane przez gracza
+	 */
 	private static void rozmowa(String polecenie) {
 		NPC rozmowca = zwrocRozmowce();
 		frame.piszDialogi("Bohater: " + polecenie);
@@ -267,6 +295,12 @@ public class Start {
 			frame.piszDialogi(nazwaRozmowcy + rozmowca.dajNiezrozumienie());
 	}
 
+	/**
+	 * Pobieranie dialogu postaci z pliku XMLowego
+	 * @param osoba Nazwa NPC do parsowania XML. Zobacz {@link NPC#getNazwaXML()}.
+	 * @param jakiDialog Rodzaj dialogu.
+	 * @return Dialog NPC
+	 */
 	private static String pobranieDialogu(String osoba, String jakiDialog) {
 		int temp = 0;
 		String dialogDoZwrocenia = null;
