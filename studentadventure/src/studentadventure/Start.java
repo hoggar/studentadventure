@@ -218,6 +218,8 @@ public class Start {
 			} else
 				frame.piszBlad("'Nie rozumiem'");
 			break;
+		case PODNOSZENIE:
+			break;
 		case BRAK:
 			if (bohater.isCzyRozmawia() == false)
 				frame.pisz("Sformu³uj swoje polecenie inaczej.");
