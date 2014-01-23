@@ -205,16 +205,16 @@ public class SQLManager {
 		return komendy;
 	}
 
-	private String dePolish(String taskToDePolish) {
+	public String dePolish(String taskToDePolish) {
 		String depolishedTask = taskToDePolish;
-		depolishedTask = depolishedTask.replaceAll("Å„", "n");
-		depolishedTask = depolishedTask.replaceAll("Ä™", "e");
-		depolishedTask = depolishedTask.replaceAll("Åº", "z");
-		depolishedTask = depolishedTask.replaceAll("Ä…", "a");
-		depolishedTask = depolishedTask.replaceAll("Ä‡", "c");
-		depolishedTask = depolishedTask.replaceAll("Ã³", "o");
-		depolishedTask = depolishedTask.replaceAll("Å¼", "z");
-		depolishedTask = depolishedTask.replaceAll("Å‚", "l");
+		depolishedTask = depolishedTask.replaceAll("ñ", "n");
+		depolishedTask = depolishedTask.replaceAll("ê", "e");
+		depolishedTask = depolishedTask.replaceAll("Ÿ", "z");
+		depolishedTask = depolishedTask.replaceAll("¹", "a");
+		depolishedTask = depolishedTask.replaceAll("æ", "c");
+		depolishedTask = depolishedTask.replaceAll("ó", "o");
+		depolishedTask = depolishedTask.replaceAll("¿", "z");
+		depolishedTask = depolishedTask.replaceAll("³‚", "l");
 		return depolishedTask;
 	}
 

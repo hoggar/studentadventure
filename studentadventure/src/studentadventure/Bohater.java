@@ -9,11 +9,13 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 public class Bohater extends Postac {
-	private static final File bohaterNorth = new File("./files/bohater-north.gif");
-	private static final File bohaterSouth = new File("./files/bohater-south.gif"); 
-	private static final File bohaterWest = new File("./files/bohater-west.gif"); 
-	private static final File bohaterEast = new File("./files/bohater-east.gif"); 
-	
+	private static final File bohaterNorth = new File(
+			"./files/bohater-north.gif");
+	private static final File bohaterSouth = new File(
+			"./files/bohater-south.gif");
+	private static final File bohaterWest = new File("./files/bohater-west.gif");
+	private static final File bohaterEast = new File("./files/bohater-east.gif");
+
 	private boolean czyRozmawia;
 	private int mpAkt; // aktualne punkty many
 	private int mpMAX; // maksymalne punkty many
@@ -29,19 +31,20 @@ public class Bohater extends Postac {
 	public String statystyki() {
 		String temp = "HP: " + hpAkt + "\\" + hpMAX + "\n" + "MP: " + mpAkt
 				+ "\\" + mpMAX + "\n" + "EXP: " + exp + "\n" + "STR: " + sila
-				+ "   INT: " + inteligencja + "\n" + "END: " + wytrzymalosc + "   CHAR: " + charyzma;
+				+ "   INT: " + inteligencja + "\n" + "END: " + wytrzymalosc
+				+ "   CHAR: " + charyzma;
 		return temp;
 	}
-	
+
 	public Bohater() {
 		posiadaneQuesty = new LinkedList<Quest>();
 		posiadanePrzedmioty = new LinkedList<Przedmiot>();
-		sila=50;
-		exp=0;
-		inteligencja=50;
-		wytrzymalosc=50;
-		charyzma=50;
-		hpMAX=100+10*wytrzymalosc;
+		sila = 50;
+		exp = 0;
+		inteligencja = 50;
+		wytrzymalosc = 50;
+		charyzma = 50;
+		hpMAX = 100 + 10 * wytrzymalosc;
 		try {
 			obrazekPostaci = ImageIO.read(bohaterSouth);
 		} catch (IOException e) {
@@ -60,50 +63,54 @@ public class Bohater extends Postac {
 
 	public String ekwipunek() {
 		String temp = "";
-		if(posiadanePrzedmioty.size()!=0) {
-		for (Przedmiot aktPrzedmiot : posiadanePrzedmioty) {
-			temp=temp+ "NAZWA: " + aktPrzedmiot.getnazwa() + "\nOPIS: " + aktPrzedmiot.getopis();
-			temp=temp+"\n";
-		}
-		} else temp=temp+"Brak przedmiotow\n";
+		if (posiadanePrzedmioty.size() != 0) {
+			for (Przedmiot aktPrzedmiot : posiadanePrzedmioty) {
+				temp = temp + "NAZWA: " + aktPrzedmiot.getnazwa() + "\nOPIS: "
+						+ aktPrzedmiot.getopis();
+				temp = temp + "\n";
+			}
+		} else
+			temp = temp + "Brak przedmiotow\n";
 		return temp;
 	}
-	
+
 	public String questy() {
 		String temp = "";
-		if(posiadaneQuesty.size()!=0) {
-		for(Quest aktQuest : posiadaneQuesty) {
-			temp=temp+"Nazwa: "+aktQuest.getNazwa() + "\nCEL: " + aktQuest.getCel() + "\n";
-		}
-		} else temp=temp+"Brak questow/zadan\n";
+		if (posiadaneQuesty.size() != 0) {
+			for (Quest aktQuest : posiadaneQuesty) {
+				temp = temp + "Nazwa: " + aktQuest.getNazwa() + "\nCEL: "
+						+ aktQuest.getCel() + "\n";
+			}
+		} else
+			temp = temp + "Brak questow/zadan\n";
 		return temp;
 	}
 
 	public void ruch(WorldDirections kierunek) {
 		try {
-		switch (kierunek) {
-		case NORTH:
-			y = y - 1;
-			obrazekPostaci=ImageIO.read(bohaterNorth);
-			break;
-		case SOUTH:
-			y = y + 1;
-			obrazekPostaci=ImageIO.read(bohaterSouth);
-			break;
-		case WEST:
-			x = x - 1;
-			obrazekPostaci=ImageIO.read(bohaterWest);
-			break;
-		case EAST:
-			x = x + 1;
-			obrazekPostaci=ImageIO.read(bohaterEast);
-			break;
-		}
+			switch (kierunek) {
+			case NORTH:
+				y = y - 1;
+				obrazekPostaci = ImageIO.read(bohaterNorth);
+				break;
+			case SOUTH:
+				y = y + 1;
+				obrazekPostaci = ImageIO.read(bohaterSouth);
+				break;
+			case WEST:
+				x = x - 1;
+				obrazekPostaci = ImageIO.read(bohaterWest);
+				break;
+			case EAST:
+				x = x + 1;
+				obrazekPostaci = ImageIO.read(bohaterEast);
+				break;
+			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Nie udalo sie zmienic obrazka postaci");
 			e.printStackTrace();
 		}
-		this.czyRozmawia=false;
+		this.czyRozmawia = false;
 	}
 
 	public List<Przedmiot> getPosiadanePrzedmioty() {
@@ -177,7 +184,7 @@ public class Bohater extends Postac {
 	public static void setObrazekPostaci(Image obrazekPostaci) {
 		Bohater.obrazekPostaci = obrazekPostaci;
 	}
-	
+
 	public boolean isCzyRozmawia() {
 		return czyRozmawia;
 	}
@@ -185,6 +192,5 @@ public class Bohater extends Postac {
 	public void setCzyRozmawia(boolean czyRozmawia) {
 		this.czyRozmawia = czyRozmawia;
 	}
-
 
 }

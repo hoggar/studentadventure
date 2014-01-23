@@ -49,6 +49,7 @@ public class Start {
 			} else
 				frame.piszBlad("Nie ma gdzie tam iœæ. Nawet jakbym chcia³");
 			break;
+
 		case SOUTH:
 			actY = actY + 1;
 			if (actY < WIELKOSC_MAPY) {
@@ -60,6 +61,7 @@ public class Start {
 			} else
 				frame.piszBlad("Nie ma gdzie tam iœæ. Nawet jakbym chcia³");
 			break;
+
 		case WEST:
 			actX = actX - 1;
 			if (actX >= 0) {
@@ -71,6 +73,7 @@ public class Start {
 			} else
 				frame.piszBlad("Nie ma gdzie tam iœæ. Nawet jakbym chcia³");
 			break;
+
 		case EAST:
 			actX = actX + 1;
 			if (actX < WIELKOSC_MAPY) {
@@ -221,6 +224,7 @@ public class Start {
 	private static void rozmowa(String polecenie) {
 		NPC rozmowca = zwrocRozmowce();
 		frame.piszDialogi("Bohater: " + polecenie);
+		//polecenie = sqlmanager.dePolish(polecenie);
 
 		String nazwaRozmowcy = rozmowca.getNazwa() + ": ";
 
@@ -245,7 +249,7 @@ public class Start {
 						bohater.getPosiadaneQuesty().add(new Quest(1));
 					}
 				} else if (dialog.getZnaczenie().contains("ODPOWIEDZ")) {
-					// JeÅ›li jest to ODPOWIEDZ na zagadkÄ™
+					// Jeœli jest to ODPOWIEDZ na zagadkê™
 					for (Quest aktQuest : bohater.getPosiadaneQuesty()) {
 						if ((aktQuest.isCzyZagadka())
 								&& (aktQuest.sprawdzOdpowiedz(polecenie))) {
@@ -260,7 +264,7 @@ public class Start {
 				// przypadek
 			}
 		} else
-			frame.piszDialogi(nazwaRozmowcy + "Nie rozumiem Pana!");
+			frame.piszDialogi(nazwaRozmowcy + rozmowca.dajNiezrozumienie());
 	}
 
 	private static String pobranieDialogu(String osoba, String jakiDialog) {
