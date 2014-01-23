@@ -43,44 +43,44 @@ public class Start {
 			if (actY >= 0) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.NORTH);
-					frame.pisz("*Idziesz na pÃ³Å‚noc*");
+					frame.pisz("*Idziesz na pó³noc*");
 				} else
-					frame.piszBlad("'Nie moge tam isc!'");
+					frame.piszBlad("'Nie moge tam iœæ!'");
 			} else
-				frame.piszBlad("Nie ma gdzie tam iÅ›Ä‡. Nawet jakbym chciaÅ‚");
+				frame.piszBlad("Nie ma gdzie tam iœæ. Nawet jakbym chcia³");
 			break;
 		case SOUTH:
 			actY = actY + 1;
 			if (actY < WIELKOSC_MAPY) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.SOUTH);
-					frame.pisz("*Idziesz na poÅ‚udnie*");
+					frame.pisz("*Idziesz na po³udnie*");
 				} else
-					frame.piszBlad("'Nie moge tam isc!'");
+					frame.piszBlad("'Nie moge tam iœæ!'");
 			} else
-				frame.piszBlad("Nie ma gdzie tam iÅ›Ä‡. Nawet jakbym chciaÅ‚");
+				frame.piszBlad("Nie ma gdzie tam iœæ. Nawet jakbym chcia³");
 			break;
 		case WEST:
 			actX = actX - 1;
 			if (actX >= 0) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.WEST);
-					frame.pisz("*Idziesz na zachÃ³d*");
+					frame.pisz("*Idziesz na zachód*");
 				} else
-					frame.piszBlad("'Nie moge tam isc!'");
+					frame.piszBlad("'Nie moge tam iœæ!'");
 			} else
-				frame.piszBlad("Nie ma gdzie tam iÅ›Ä‡. Nawet jakbym chciaÅ‚");
+				frame.piszBlad("Nie ma gdzie tam iœæ. Nawet jakbym chcia³");
 			break;
 		case EAST:
 			actX = actX + 1;
 			if (actX < WIELKOSC_MAPY) {
 				if (mapa[actX][actY].isCzyMoznaPoTymChodzic()) {
 					bohater.ruch(WorldDirections.EAST);
-					frame.pisz("*Idziesz na wschÃ³d*");
+					frame.pisz("*Idziesz na wschód*");
 				} else
-					frame.piszBlad("'Nie moge tam isc!'");
+					frame.piszBlad("'Nie moge tam iœæ!'");
 			} else
-				frame.piszBlad("Nie ma gdzie tam iÅ›Ä‡. Nawet jakbym chciaÅ‚");
+				frame.piszBlad("Nie ma gdzie tam iœæ. Nawet jakbym chcia³");
 			break;
 		}
 	}
@@ -125,7 +125,7 @@ public class Start {
 		try {
 			czytacz = new Scanner(plikNPC);
 		} catch (FileNotFoundException e) {
-			System.err.println("Nie udalo sie odczytac NPC");
+			System.err.println("Nie uda³o sie odczytaæ NPC");
 			e.printStackTrace();
 		}
 
@@ -165,7 +165,7 @@ public class Start {
 		case ROZMOWA:
 			if (czyNPCJestBlisko()) {
 				bohater.setCzyRozmawia(true);
-				frame.pisz("SkupiÅ‚eÅ› uwagÄ™ postaci niezaleÅ¼nej");
+				frame.pisz("Skupi³eœ uwagê postaci niezale¿nej");
 			} else
 				frame.pisz("Nie masz z kim rozmawiaÄ‡!");
 			break;
@@ -290,13 +290,13 @@ public class Start {
 	}
 
 	private static void gra() {
-		frame.pisz("\"...i oto wÅ‚aÅ›nie drodzy paÅ„stwo jest transformata Fouriera\"\n\n"
-				+ "'BoÅ¼e co za nudy'\n"
-				+ "'Ciekawe jak kiedyÅ› uczyÅ‚ profesor'\n"
-				+ "*MyÅ›li intensywnie*\n"
-				+ "'Wiem, zbuduje wehikuÅ‚ czasu!\n"
-				+ "'Ale najpierw potrzebujÄ™ urlopu dziekaÅ„skiego\n"
-				+ "'MuszÄ™ iÅ›Ä‡ do dziekanatu!'\n");
+		frame.pisz("\"...i oto w³aœnie drodzy pañstwo jest transformata Fouriera\"\n\n"
+				+ "'Bo¿e co za nudy'\n"
+				+ "'Ciekawe jak kiedyœ uczy³‚ profesor'\n"
+				+ "*Myœli intensywnie*\n"
+				+ "'Wiem, zbuduje wehiku³‚ czasu!\n"
+				+ "'Ale najpierw potrzebujê urlopu dziekañskiego\n"
+				+ "'Muszê iœæ do dziekanatu!'\n");
 	}
 
 }

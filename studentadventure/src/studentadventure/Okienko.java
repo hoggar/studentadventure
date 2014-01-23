@@ -74,6 +74,7 @@ public class Okienko extends JFrame {
 				Start.btnOnClick();
 			}
 		});
+		
 		cmdBtn.setBounds(368, 626, 117, 25);
 		this.getRootPane().setDefaultButton(cmdBtn);
 		contentPane.add(cmdBtn);
