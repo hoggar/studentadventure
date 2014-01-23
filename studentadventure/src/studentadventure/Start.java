@@ -26,8 +26,10 @@ public class Start {
 	public static int numerPoziomu;
 	private static List<Przedmiot> przedmiotyNaMapie;
 	private static File plikPrzedmiotow;
+	private static List<Item> przedmioty;
 
 	public static void main(String[] args) {
+		przedmioty = new LinkedList<Item>();
 		numerPoziomu = 1;
 		wybierzMape(numerPoziomu);
 		frame = new Okienko();
@@ -37,7 +39,9 @@ public class Start {
 
 	/**
 	 * Funkcja odpowiedzlana za poruszania siê bohatera po mapie
-	 * @param polecenie Polecenie wydane przez Gracza
+	 * 
+	 * @param polecenie
+	 *            Polecenie wydane przez Gracza
 	 */
 	private static void ruch(String polecenie) {
 		int actX = bohater.getX();
@@ -97,7 +101,9 @@ public class Start {
 
 	/**
 	 * Funkcja s³u¿¹ca do ustawienia odpowiednich plików do obiektów
-	 * @param numerMapy Numer mapy w grze
+	 * 
+	 * @param numerMapy
+	 *            Numer mapy w grze
 	 */
 	private static void wybierzMape(int numerMapy) {
 		File plikMapy = null;
@@ -128,8 +134,11 @@ public class Start {
 
 	/**
 	 * Funkcja odpowiedzialna za wczytywanie zasoboów z pliku do zmiennych
-	 * @param plikMapy Plik w którym znajdujê siê mapa
-	 * @param plikNPC Plik w którym znajduj¹ siê bohaterzy niezale¿ni
+	 * 
+	 * @param plikMapy
+	 *            Plik w którym znajdujê siê mapa
+	 * @param plikNPC
+	 *            Plik w którym znajduj¹ siê bohaterzy niezale¿ni
 	 */
 	public static void wczytajZasoby(File plikMapy, File plikNPC) {
 		Scanner czytacz = null;
@@ -151,7 +160,7 @@ public class Start {
 				}
 			}
 		}
-		
+
 		if (plikNPC != null) {
 			try {
 				czytacz = new Scanner(plikNPC);
@@ -166,27 +175,28 @@ public class Start {
 				postacieNiezalezne.add(new NPC(id));
 			}
 		}
-		
-		if (plikPrzedmiotow != null){
-			try{
+
+		if (plikPrzedmiotow != null) {
+			try {
 				czytacz = new Scanner(plikPrzedmiotow);
 			} catch (FileNotFoundException e) {
 				System.err.println("Nie uda³o siê wczytaæ pliku przedmiotów");
 				e.printStackTrace();
 			}
-			
+
 			while (czytacz.hasNextLine()) {
 				String x = czytacz.nextLine();
 				String y = czytacz.nextLine();
 				String nazwa = czytacz.nextLine();
-				String opis = czytacz. nextLine();
+				String opis = czytacz.nextLine();
 				Integer xint = new Integer(x);
 				Integer yint = new Integer(y);
-				System.out.println("x: " + x + " y: " + y + " nazwa: " + nazwa + " opis: " + opis);
+				System.out.println("x: " + x + " y: " + y + " nazwa: " + nazwa
+						+ " opis: " + opis);
 				Przedmiot temp = new Przedmiot(xint, yint, nazwa, opis);
 				przedmiotyNaMapie.add(temp);
 			}
-			
+
 		}
 	}
 
@@ -216,36 +226,41 @@ public class Start {
 			frame.pisz("Zdejmujesz z siebie wskazany element odzieÅ¼y.");
 			break;
 		case SPOJRZ:
-			WorldDirections kierunek = sqlmanager.interpretTaskForDirection(polecenie);
-			int aktX=bohater.getX();
-			int aktY=bohater.getY();
-			switch(kierunek) {
+			WorldDirections kierunek = sqlmanager
+					.interpretTaskForDirection(polecenie);
+			int aktX = bohater.getX();
+			int aktY = bohater.getY();
+			switch (kierunek) {
 			case NORTH:
-				if(aktY-1>=0)
-					frame.piszReszta(mapa[aktX][aktY-1].getOpis());
+				if (aktY - 1 >= 0)
+					frame.piszReszta(mapa[aktX][aktY - 1].getOpis());
 				break;
 			case SOUTH:
-				if(aktY+1<WIELKOSC_MAPY)
-					frame.piszReszta(mapa[aktX][aktY+1].getOpis());
+				if (aktY + 1 < WIELKOSC_MAPY)
+					frame.piszReszta(mapa[aktX][aktY + 1].getOpis());
 				break;
 			case WEST:
-				if(aktX-1>=0)
-					frame.piszReszta(mapa[aktX-1][aktY].getOpis());
+				if (aktX - 1 >= 0)
+					frame.piszReszta(mapa[aktX - 1][aktY].getOpis());
 				break;
 			case EAST:
-				if(aktX-1<WIELKOSC_MAPY)
-					frame.piszReszta(mapa[aktX+1][aktY].getOpis());
+				if (aktX - 1 < WIELKOSC_MAPY)
+					frame.piszReszta(mapa[aktX + 1][aktY].getOpis());
 				break;
 			default:
 				frame.piszReszta("Stoisz na: " + mapa[aktX][aktY].getOpis());
-				if(aktY-1>=0)
-					frame.piszReszta("\nNa pó³noc: " + mapa[aktX][aktY-1].getOpis());
-				if(aktY+1<WIELKOSC_MAPY)
-					frame.piszReszta("\nNa po³udnie: " + mapa[aktX][aktY+1].getOpis());
-				if(aktX-1>=0)
-					frame.piszReszta("\nNa Zachód: " + mapa[aktX-1][aktY].getOpis());
-				if(aktX+1<WIELKOSC_MAPY)
-					frame.piszReszta("\nNa wschód: " +mapa[aktX+1][aktY].getOpis());
+				if (aktY - 1 >= 0)
+					frame.piszReszta("\nNa pó³noc: "
+							+ mapa[aktX][aktY - 1].getOpis());
+				if (aktY + 1 < WIELKOSC_MAPY)
+					frame.piszReszta("\nNa po³udnie: "
+							+ mapa[aktX][aktY + 1].getOpis());
+				if (aktX - 1 >= 0)
+					frame.piszReszta("\nNa Zachód: "
+							+ mapa[aktX - 1][aktY].getOpis());
+				if (aktX + 1 < WIELKOSC_MAPY)
+					frame.piszReszta("\nNa wschód: "
+							+ mapa[aktX + 1][aktY].getOpis());
 				break;
 			}
 			break;
@@ -276,8 +291,9 @@ public class Start {
 				frame.piszBlad("'Nie rozumiem'");
 			break;
 		case PODNOSZENIE:
-			for(Przedmiot aktPrzedmiot : przedmiotyNaMapie) {
-				if((bohater.getX()==aktPrzedmiot.getX()) && (bohater.getY()==aktPrzedmiot.getY())) {
+			for (Przedmiot aktPrzedmiot : przedmiotyNaMapie) {
+				if ((bohater.getX() == aktPrzedmiot.getX())
+						&& (bohater.getY() == aktPrzedmiot.getY())) {
 					bohater.getPosiadanePrzedmioty().add(aktPrzedmiot);
 					przedmiotyNaMapie.remove(aktPrzedmiot);
 					frame.pisz("===OTRZYMALES NOWY PRZEDMIOT===\n");
@@ -298,6 +314,7 @@ public class Start {
 
 	/**
 	 * Przeszukiwania pól wokó³ bohatera w celu wyszukania NPC
+	 * 
 	 * @return Zwraca true jeœli NPC jest blisko lub false gdy nie jest
 	 */
 	private static boolean czyNPCJestBlisko() {
@@ -311,7 +328,8 @@ public class Start {
 	}
 
 	/**
-	 * Zwraca NPC który jest wokó³ bohatera 
+	 * Zwraca NPC który jest wokó³ bohatera
+	 * 
 	 * @return Postaæ która jest wokó³ bohatera
 	 */
 	private static NPC zwrocRozmowce() {
@@ -323,10 +341,12 @@ public class Start {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Rozmowê z NPC w grze
-	 * @param polecenie Polecenie wydane przez gracza
+	 * 
+	 * @param polecenie
+	 *            Polecenie wydane przez gracza
 	 */
 	private static void rozmowa(String polecenie) {
 		NPC rozmowca = zwrocRozmowce();
@@ -379,8 +399,11 @@ public class Start {
 
 	/**
 	 * Pobieranie dialogu postaci z pliku XMLowego
-	 * @param osoba Nazwa NPC do parsowania XML. Zobacz {@link NPC#getNazwaXML()}.
-	 * @param jakiDialog Rodzaj dialogu.
+	 * 
+	 * @param osoba
+	 *            Nazwa NPC do parsowania XML. Zobacz {@link NPC#getNazwaXML()}.
+	 * @param jakiDialog
+	 *            Rodzaj dialogu.
 	 * @return Dialog NPC
 	 */
 	private static String pobranieDialogu(String osoba, String jakiDialog) {
@@ -413,22 +436,64 @@ public class Start {
 	 */
 	private static void gra() {
 		frame.czyscLog();
-		
-		if(numerPoziomu == 1){
-		
-		frame.pisz("\"...i oto w³aœnie drodzy pañstwo jest transformata Fouriera\"\n\n"
-				+ "'Bo¿e co za nudy'\n"
-				+ "'Ciekawe jak kiedyœ uczy³‚ profesor'\n"
-				+ "*Myœli intensywnie*\n"
-				+ "'Wiem, zbuduje wehiku³‚ czasu!\n"
-				+ "'Ale najpierw potrzebujê urlopu dziekañskiego\n"
-				+ "'Muszê iœæ do dziekanatu!'\n");
-		}
-		else if (numerPoziomu == 2)
-		{
-		frame.pisz("*Znalaz³em siê w swiom gara¿u.\n*"
+
+		if (numerPoziomu == 1) {
+
+			frame.pisz("\"...i oto w³aœnie drodzy pañstwo jest transformata Fouriera\"\n\n"
+					+ "'Bo¿e co za nudy'\n"
+					+ "'Ciekawe jak kiedyœ uczy³‚ profesor'\n"
+					+ "*Myœli intensywnie*\n"
+					+ "'Wiem, zbuduje wehiku³‚ czasu!\n"
+					+ "'Ale najpierw potrzebujê urlopu dziekañskiego\n"
+					+ "'Muszê iœæ do dziekanatu!'\n");
+		} else if (numerPoziomu == 2) {
+			frame.pisz("*Znalaz³em siê w swiom gara¿u.\n*"
 					+ "Pora na skonstruowanie wehiku³u!\n\n");
-			
+
+		}
+	}
+
+	private static void wczytajItemki() {
+		String nazwa;
+		String opis;
+		int plusDoObrony;
+		int plusDoSily;
+		int plusDoInteligencji;
+		int plusDoWytrzymalosci;
+		int plusDoCharyzmy;
+
+		Scanner in = null;
+		try {
+			in = new Scanner(new File("przedmioty.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		while (in.hasNextLine()) {
+			nazwa = in.nextLine();
+			opis = in.nextLine();
+			plusDoObrony = Integer.valueOf(in.nextLine());
+			plusDoSily = Integer.valueOf(in.nextLine());
+			plusDoInteligencji = Integer.valueOf(in.nextLine());
+			plusDoWytrzymalosci = Integer.valueOf(in.nextLine());
+			plusDoCharyzmy = Integer.valueOf(in.nextLine());
+			przedmioty.add(new Item(nazwa, opis, plusDoObrony, plusDoSily,
+					plusDoInteligencji, plusDoWytrzymalosci, plusDoCharyzmy));
+		}
+
+	}
+
+	private static void wyswietlItemki() {
+		for (int i = 0; i < przedmioty.size(); i++) {
+			Item przedmiot = przedmioty.get(i);
+			System.out.print("Nazwa przedmiotu: " + przedmiot.getnazwa()
+					+ "\nOpis przedmiotu: " + przedmiot.getopis());
+			System.out.print("\nObrona: +" + przedmiot.getPlusDoObrony()
+					+ "\nSila: +" + przedmiot.getPlusDoSily());
+			System.out.print("\nInteligencja: +"
+					+ przedmiot.getPlusDoInteligencji() + "\nWytrzymalosc: +"
+					+ przedmiot.getPlusDoWytrzymalosci());
+			System.out.println("\nCharyzma: +" + przedmiot.getPlusDoCharyzmy());
 		}
 	}
 
