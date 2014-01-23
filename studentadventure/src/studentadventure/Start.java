@@ -341,6 +341,9 @@ public class Start {
 		return dialogDoZwrocenia;
 	}
 
+	/**
+	 * Wypisuje poczatkowy opis mapy
+	 */
 	private static void gra() {
 		frame.czyscLog();
 		
