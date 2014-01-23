@@ -24,9 +24,11 @@ public class Start {
 	public static Tile[][] mapa = new Tile[WIELKOSC_MAPY][WIELKOSC_MAPY];
 	private static Okienko frame;
 	private static File plikDialogow;
+	public static int numerPoziomu;
 
 	public static void main(String[] args) {
-		wybierzMape(1);
+		numerPoziomu = 1;
+		wybierzMape(numerPoziomu);
 		frame = new Okienko();
 		frame.setVisible(true);
 		Start.gra();
@@ -101,6 +103,14 @@ public class Start {
 			plikDialogow = new File("./files/dialogi/dziekanat.xml");
 			wczytajZasoby(plikMapy, plikNPC);
 			break;
+		case 2:
+			bohater.setX(4);
+			bohater.setY(0);
+			plikNPC = null;
+			plikMapy = new File("./files/garaz.map");
+			plikDialogow = null;
+			wczytajZasoby(plikMapy, plikNPC);
+			break;
 		}
 	}
 
@@ -124,18 +134,20 @@ public class Start {
 				}
 			}
 		}
+		
+		if (plikNPC != null) {
+			try {
+				czytacz = new Scanner(plikNPC);
+			} catch (FileNotFoundException e) {
+				System.err.println("Nie uda³o sie odczytaæ NPC");
+				e.printStackTrace();
+			}
 
-		try {
-			czytacz = new Scanner(plikNPC);
-		} catch (FileNotFoundException e) {
-			System.err.println("Nie uda³o sie odczytaæ NPC");
-			e.printStackTrace();
-		}
-
-		while (czytacz.hasNextInt()) {
-			int id = czytacz.nextInt();
-			System.out.println(id);
-			postacieNiezalezne.add(new NPC(id));
+			while (czytacz.hasNextInt()) {
+				int id = czytacz.nextInt();
+				System.out.println(id);
+				postacieNiezalezne.add(new NPC(id));
+			}
 		}
 	}
 
@@ -224,7 +236,7 @@ public class Start {
 	private static void rozmowa(String polecenie) {
 		NPC rozmowca = zwrocRozmowce();
 		frame.piszDialogi("Bohater: " + polecenie);
-		//polecenie = sqlmanager.dePolish(polecenie);
+		// polecenie = sqlmanager.dePolish(polecenie);
 
 		String nazwaRozmowcy = rozmowca.getNazwa() + ": ";
 
@@ -257,6 +269,9 @@ public class Start {
 							bohater.getPosiadanePrzedmioty().add(
 									aktQuest.getNagroda());
 							bohater.getPosiadaneQuesty().remove(aktQuest);
+							numerPoziomu = 2;
+							gra();
+							wybierzMape(numerPoziomu);
 						}
 					}
 				} else
@@ -271,7 +286,6 @@ public class Start {
 		int temp = 0;
 		String dialogDoZwrocenia = null;
 		try {
-			File fXmlFile = new File("/Users/Marcin/Desktop/staff.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -294,6 +308,10 @@ public class Start {
 	}
 
 	private static void gra() {
+		frame.czyscLog();
+		
+		if(numerPoziomu == 1){
+		
 		frame.pisz("\"...i oto w³aœnie drodzy pañstwo jest transformata Fouriera\"\n\n"
 				+ "'Bo¿e co za nudy'\n"
 				+ "'Ciekawe jak kiedyœ uczy³‚ profesor'\n"
@@ -301,6 +319,13 @@ public class Start {
 				+ "'Wiem, zbuduje wehiku³‚ czasu!\n"
 				+ "'Ale najpierw potrzebujê urlopu dziekañskiego\n"
 				+ "'Muszê iœæ do dziekanatu!'\n");
+		}
+		else if (numerPoziomu == 2)
+		{
+		frame.pisz("*Znalaz³em siê w swiom gara¿u.\n*"
+					+ "Pora na skonstruowanie wehiku³u!\n\n");
+			
+		}
 	}
 
 }

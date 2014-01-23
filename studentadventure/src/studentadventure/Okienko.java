@@ -131,6 +131,10 @@ public class Okienko extends JFrame {
 		int dlugoscPola = log.getDocument().getLength();
 		log.setCaretPosition(dlugoscPola);
 	}
+	
+	public void czyscLog() {
+		log.setText("");
+	}
 
 	public void czyscCmdField() {
 		cmdField.setText("");
