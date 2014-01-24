@@ -1,0 +1,26 @@
+Bartosz Łęcki:
+-sworzenie mechaniki przechodządzej z poziomu na poziom
+-stworzenie logiki do podnoszenia przedmiotów
+-funkcja kolorująca składnię tekstów poszczególnych komunikatów i postaci
+-poprawienie bazy słownikowej 
+
+
+Karolina Kowalik:
+-stworzenie kafelków do poziomiu garazu jak i do poziomu Newtona oraz zadeklarowanie ich funkcji w programie.
+-stworzenie pliku przedmiotu(w tym gdzie jest umieszczony na mapie), oraz funkcji wczytującej przedmioty do gry.
+-rozbudownie okna z wyglądem walki
+
+
+Katarzyna Gronowska:
+-stworzenie reszty grafik postaci niezależnych oraz przeciwników
+-dodanie mechanizmów wczytywania oraz wyświetlania przedmiotów
+-stworzenie klasy Przedmiot
+-stworzenie pliku opisującego przedmioty
+
+
+
+Marcin Czainski:
+-dialogi postaci z którymi bohater wchodzi w interakcję na całym etapie gry
+- stworzenie funckji wczytującej do gry daną wypowiedź konkretnej postaci
+
+
