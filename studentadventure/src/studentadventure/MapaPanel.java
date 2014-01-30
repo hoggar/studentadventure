@@ -21,13 +21,19 @@ public class MapaPanel extends JPanel {
 			}
 		}
 
-		// Rysowanie bohatera
-		g2d.drawImage(Start.bohater.getObrazekPostaci(), Start.bohater.getX()
-				* TILE_SIZE, Start.bohater.getY() * TILE_SIZE, this);
-
 		// Rysowanie przeciwnika
 		if (Start.przeciwnik != null)
 			g2d.drawImage(Start.przeciwnik.getObrazekPostaci(),
-					Start.przeciwnik.getX()*TILE_SIZE, Start.przeciwnik.getY()*TILE_SIZE, this);
+					Start.przeciwnik.getX() * TILE_SIZE,
+					Start.przeciwnik.getY() * TILE_SIZE, this);
+
+		for (Przedmiot aktPrzedmiot : Start.przedmiotyNaMapie) {
+			g2d.drawImage(aktPrzedmiot.grafikaPrzedmiotu, aktPrzedmiot.getX()
+					* TILE_SIZE, aktPrzedmiot.getY() * TILE_SIZE, this);
+		}
+
+		// Rysowanie bohatera
+		g2d.drawImage(Start.bohater.getObrazekPostaci(), Start.bohater.getX()
+				* TILE_SIZE, Start.bohater.getY() * TILE_SIZE, this);
 	}
 }

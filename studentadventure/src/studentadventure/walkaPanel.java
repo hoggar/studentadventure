@@ -30,7 +30,7 @@ public class walkaPanel extends JPanel {
                 monsterImage = Start.przeciwnik.getFightImage();
                 g2d.drawImage(heroImage, 15, 55, this);
                 g2d.drawImage(monsterImage, 200, 100, this);
-                g2d.drawImage(fight, 100, 130, this);
+                //g2d.drawImage(fight, 100, 130, this);
                 
                 String herohp = "HP: "+Start.bohater.getHpAkt()+"/"+Start.bohater.getHpMAX();
                 String monsterhp = "HP: "+Start.przeciwnik.getHpAkt()+"/"+Start.przeciwnik.getHpMAX();

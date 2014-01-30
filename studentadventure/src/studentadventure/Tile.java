@@ -189,7 +189,7 @@ public class Tile {
 				_opis = "Coœ kolorowego tam jest, musia³bym siê bli¿ej przyjrzeæ by wiedzieæ co to";
 				cMC = true;
 				_tlo = new File(
-						"./files/images/kafelki/garaz/kulki.jpg");
+						"./files/images/kafelki/garaz/podloga.jpg");
 				break;
 			case 9:
 				_opis = "Po pod³odze mo¿na chodziæ";
@@ -230,7 +230,7 @@ public class Tile {
 				_opis = "Có¿ to mo¿e byæ? Musia³ bym siê lepiej przyjrzeæ";
 				cMC = false;
 				_tlo = new File(
-						"./files/images/kafelki/garaz/cos2.jpg");
+						"./files/images/kafelki/garaz/podloga.jpg");
 				break;
 			case 16:
 				_opis = "Du¿o w tym gara¿u mam pude³. Nawet nie wiem co w którym jest";
@@ -242,13 +242,13 @@ public class Tile {
 				_opis = "Jakaœ spre¿yna tam chyba le¿y";
 				cMC = true;
 				_tlo = new File(
-						"./files/images/kafelki/garaz/sprezyna.jpg");
+						"./files/images/kafelki/garaz/podloga.jpg");
 				break;
 			case 18:
 				_opis = "Tam s¹ narzêdzia, nie bierz ich bez zgody ojca";
 				cMC = true;
 				_tlo = new File(
-						"./files/images/kafelki/garaz/narzedzia.jpg");
+						"./files/images/kafelki/garaz/podloga.jpg");
 				break;
 			case 19:
 				_opis = "Coœ tam cobie le¿y";

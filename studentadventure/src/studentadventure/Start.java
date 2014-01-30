@@ -27,7 +27,7 @@ public class Start {
 	private static Okienko frame;
 	private static File plikDialogow;
 	public static int numerPoziomu;
-	private static List<Przedmiot> przedmiotyNaMapie;
+	public static List<Przedmiot> przedmiotyNaMapie;
 	private static File plikPrzedmiotow;
 	private static List<Item> przedmioty;
 	public static Przeciwnik przeciwnik;

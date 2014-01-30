@@ -22,8 +22,8 @@ public class Przeciwnik extends Postac {
 			hpAkt=50;
 			hpMAX=50;
 			try {
-				obrazekPostaci = ImageIO.read(new File("./files/images/przeciwnicy/szczur.jpg"));
-				fightImage = ImageIO.read(new File("./files/images/przeciwnicy/szczurfight.jpg"));
+				obrazekPostaci = ImageIO.read(new File("./files/images/przeciwnicy/szczur.gif"));
+				fightImage = ImageIO.read(new File("./files/images/przeciwnicy/szczurfight.gif"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

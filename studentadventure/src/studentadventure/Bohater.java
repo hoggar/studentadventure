@@ -47,6 +47,7 @@ public class Bohater extends Postac {
 		hpMAX = 100 + 10 * wytrzymalosc;
 		try {
 			obrazekPostaci = ImageIO.read(bohaterSouth);
+			fightImage = ImageIO.read(new File("./files/bohaterfight.gif"));
 		} catch (IOException e) {
 			System.err.println("Bohater nie ma obrazka");
 			e.printStackTrace();
