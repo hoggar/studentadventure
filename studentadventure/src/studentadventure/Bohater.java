@@ -25,7 +25,6 @@ public class Bohater extends Postac {
 	private int wytrzymalosc; // ilosc punktow wytrzymalosci
 	private int charyzma; // ilosc punktow charyzmy
 	private List<Quest> posiadaneQuesty;
-	private static Image obrazekPostaci;
 	private List<Przedmiot> posiadanePrzedmioty;
 
 	public String statystyki() {
@@ -44,6 +43,7 @@ public class Bohater extends Postac {
 		inteligencja = 50;
 		wytrzymalosc = 50;
 		charyzma = 50;
+		hpAkt = 100 + 10 * wytrzymalosc;
 		hpMAX = 100 + 10 * wytrzymalosc;
 		try {
 			obrazekPostaci = ImageIO.read(bohaterSouth);
@@ -177,13 +177,6 @@ public class Bohater extends Postac {
 		this.charyzma = charyzma;
 	}
 
-	public static Image getObrazekPostaci() {
-		return obrazekPostaci;
-	}
-
-	public static void setObrazekPostaci(Image obrazekPostaci) {
-		Bohater.obrazekPostaci = obrazekPostaci;
-	}
 
 	public boolean isCzyRozmawia() {
 		return czyRozmawia;

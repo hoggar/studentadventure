@@ -262,7 +262,248 @@ public class Tile {
 				_tlo = new File(
 						"./files/images/kafelki/garaz/szafka_prawy_bok.jpg");
 				break;
+			} }
+			else if (Start.numerPoziomu == 3) {
+				switch (numerKafelka) {
+				case 1:
+					_opis = "Œciana";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/sciana_prawa.jpg");
+					break;
+				case 2:
+					_opis = "Bia³y, no prawie bia³y œnieg";
+					cMC = true;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/snieg.jpg");
+					break;
+				case 3:
+					_opis = "Scie¿k¹ dojdziesz do karczmy";
+					cMC = true;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/sciezka1.jpg");
+					break;
+				case 4:
+					_opis = "Œcie¿k¹ dojdziesz do karczmy ";
+					cMC = true;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/sciezka2.jpg");
+					break;
+				case 5:
+					_opis = "Œcie¿k¹ dojdziesz do karczmy";
+					cMC = true;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/sciezka3.jpg");
+					break;
+				case 6:
+					_opis = "Œciana";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/rog_prawy.jpg");
+					break;
+				case 7:
+					_opis = "Œciana";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/rog_lewy.jpg");
+					break;
+				case 8:
+					_opis = "Œciana";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/sciana_gora.jpg");
+					break;
+				case 9:
+					_opis = "Znajduj¹ siê tutaj drzwi do karczmy";
+					cMC = true;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/drzwi.jpg");
+					break;
+				case 10:
+					_opis = "Tu jest tylko podloga";
+					cMC = true;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/podloga.jpg");
+					break;
+				case 11:
+					_opis = "Puste krzes³o";
+					cMC = true;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/krzeslo_n.jpg");
+					break;
+				case 12:
+					_opis = "Puste krzes³o";
+					cMC = true;
+					_tlo = new File("./files/images/kafelki/karczma/krzeslo_w.jpg");
+					break;
+				case 13:
+					_opis = "Puste krzes³o";
+					cMC = true;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/krzeslo_e.jpg");
+					break;
+				case 14:
+					_opis = "Puste krzeslo";
+					cMC = true;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/krzeslo_s.jpg");
+					break;
+				case 15:
+					_opis = "Stolik";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/stolik.jpg");
+					break;
+				case 16:
+					_opis = "Stoj¹ tu beczki z piwem, w koñcu to karczma";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/beczki.jpg");
+					break;
+				case 17:
+					_opis = "Lada, w poblizu powinnien ktos byc";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/lada1.jpg");
+					break;
+				case 18:
+					_opis = "Lada";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/lada2.jpg");
+					break;
+				case 19:
+					_opis = "Lada";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/lada3.jpg");
+					break;
+				case 20:
+					_opis = "Widzê chyba jak¹s tabliczkê.";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/tabliczka.jpg");
+					break;
+				case 21:
+					_opis = "Siedzi tutaj karczmarka";
+					cMC = false;
+					_tlo = new File(
+							"./files/images/kafelki/karczma/karczmarka.jpg");
+					break;
+				
+				}
 			}
+				else if (Start.numerPoziomu == 4) {
+					switch (numerKafelka) {
+					case 1:
+						_opis = "Jakaœ œcie¿ka";
+						cMC = true;
+						_tlo = new File(
+								"./files/images/kafelki/laka/sciezka1.jpg");
+						break;
+					case 2:
+						_opis = "Ciekawe dok¹d prowadzi ta œcie¿ka";
+						cMC = true;
+						_tlo = new File(
+								"./files/images/kafelki/laka/sciezka2.jpg");
+						break;
+					case 3:
+						_opis = "Œcie¿ka";
+						cMC = true;
+						_tlo = new File(
+								"./files/images/kafelki/laka/sciezka3.jpg");
+						break;
+					case 4:
+						_opis = "Œcie¿ka";
+						cMC = true;
+						_tlo = new File(
+								"./files/images/kafelki/laka/sciazka4.jpg");
+						break;
+					case 5:
+						_opis = "Tu jest drzewo, pod którym ktoœ siedzi";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/drzewo1.jpg");
+						break;
+					case 6:
+						_opis = "Pod drzewem ktoœ siedzi";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/drzewo2.jpg");
+						break;
+					case 7:
+						_opis = "Drzewo";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/drzewo3.jpg");
+						break;
+					case 8:
+						_opis = "Znajduje siê tutaj drzewo, pod nim ktoœ siedzi";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/drzewo4.jpg");
+						break;
+					case 9:
+						_opis = "£¹ka, wszêdzie trawa!";
+						cMC = true;
+						_tlo = new File(
+								"./files/images/kafelki/laka/trawa.jpg");
+						break;
+					case 10:
+						_opis = "Jezioro";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/j5.jpg");
+						break;
+					case 11:
+						_opis = "Jezioro";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/j1.jpg");
+						break;
+					case 12:
+						_opis = "B³êkitne jezioro";
+						cMC = false;
+						_tlo = new File("./files/images/kafelki/laka/j3.jpg");
+						break;
+					case 13:
+						_opis = "Jeziorko";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/j4.jpg");
+						break;
+					case 14:
+						_opis = "Jezioro";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/j2.jpg");
+						break;
+					case 15:
+						_opis = "Krzaki";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/krzak.jpg");
+						break;
+					case 16:
+						_opis = "Du¿y kamieñ";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/kamien.jpg");
+						break;
+					case 17:
+						_opis = "Tam ktoœ siedzi";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/postac.jpg");
+						break;
+					case 18:
+						_opis = "Le¿¹ tutaj chyba notatki tego pana";
+						cMC = false;
+						_tlo = new File(
+								"./files/images/kafelki/laka/notatki.jpg");
+						break;
+					
+					}
 
 		}
 

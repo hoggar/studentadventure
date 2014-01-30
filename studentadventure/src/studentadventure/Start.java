@@ -1,5 +1,7 @@
 package studentadventure;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.Timer;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -27,6 +30,7 @@ public class Start {
 	private static List<Przedmiot> przedmiotyNaMapie;
 	private static File plikPrzedmiotow;
 	private static List<Item> przedmioty;
+	public static Przeciwnik przeciwnik;
 
 	public static void main(String[] args) {
 		przedmioty = new LinkedList<Item>();
@@ -129,6 +133,16 @@ public class Start {
 			plikDialogow = null;
 			wczytajZasoby(plikMapy, plikNPC);
 			break;
+		case 3:
+			bohater.setX(5);
+			bohater.setY(0);
+			przeciwnik = new Przeciwnik(1);
+			plikNPC = new File("./files/karczma.boh");
+			plikMapy = new File("./files/karczma.map");
+			plikPrzedmiotow = null;
+			plikDialogow = new File("./files/dialogi/dziekanat.xml");
+			wczytajZasoby(plikMapy, plikNPC);
+			break;
 		}
 	}
 
@@ -200,6 +214,16 @@ public class Start {
 		}
 	}
 
+	private static boolean czyJestPrzeciwnik() {
+		if (przeciwnik != null) {
+			if ((Math.abs(bohater.getX() - przeciwnik.getX()) <= 1)
+					&& (Math.abs(bohater.getY() - przeciwnik.getY()) <= 1)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Funkcja wyzwalana w trakcie naciœniêcia przycisku
 	 */
@@ -214,7 +238,28 @@ public class Start {
 			Start.ruch(polecenie);
 			break;
 		case WALKA:
-			frame.pisz("Rozpoczynasz walkÄ™. BÄ…dÅº ostroÅ¼ny.");
+			if (czyJestPrzeciwnik()) {
+				frame.setFightPanel();
+				while (Start.bohater.getHpAkt() > 0
+						&& przeciwnik.getHpAkt() > 0) {
+					int sila_bohater = Start.bohater.getSila()
+							- przeciwnik.getObrona();
+					int sila_przeciwnik = przeciwnik.getAtak()
+							- Start.bohater.getWytrzymalosc();
+					frame.pisz(sila_bohater + " " + sila_przeciwnik + "WALCZE");
+					if (sila_przeciwnik > 0)
+						Start.bohater.setHpAkt(bohater.getHpAkt()
+								- sila_przeciwnik);
+					if (sila_bohater > 0)
+						przeciwnik.setHpAkt(bohater.getHpAkt() - sila_bohater);
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException ex) {
+						Thread.currentThread().interrupt();
+					}
+				}
+				frame.setMapaPanel();
+			}
 			break;
 		case JESC:
 			frame.pisz("Zjadasz coÅ›. Czujesz, jak wzrastasz w siÅ‚Ä™.");
@@ -301,6 +346,32 @@ public class Start {
 				}
 			}
 			break;
+		case BUDOWA:
+			if ((bohater.getX() == 5) && (bohater.getY() == 5)
+					&& (numerPoziomu == 2)) {
+				boolean posiadaKulki = false, posiadaSprezyne = false, posiadaNarzedzia = false, posiadaZebatki = false;
+				for (Przedmiot aktPrzedmiot : bohater.getPosiadanePrzedmioty()) {
+					if (aktPrzedmiot.getnazwa().equalsIgnoreCase("kulki"))
+						posiadaKulki = true;
+					else if (aktPrzedmiot.getnazwa().equalsIgnoreCase(
+							"sprezyna"))
+						posiadaSprezyne = true;
+					else if (aktPrzedmiot.getnazwa()
+							.equalsIgnoreCase("zebatki"))
+						posiadaZebatki = true;
+					else if (aktPrzedmiot.getnazwa().equalsIgnoreCase(
+							"narzedzia"))
+						posiadaNarzedzia = true;
+				}
+				if ((posiadaKulki == true) && (posiadaSprezyne == true)
+						&& (posiadaNarzedzia == true)
+						&& (posiadaZebatki == true))
+					bohater.getPosiadaneQuesty().remove(0);
+				numerPoziomu = 3;
+				gra();
+				wybierzMape(numerPoziomu);
+			}
+			break;
 		case BRAK:
 			if (bohater.isCzyRozmawia() == false)
 				frame.pisz("Sformu³uj swoje polecenie inaczej.");
@@ -363,17 +434,29 @@ public class Start {
 			String dialogNPC = pobranieDialogu(rozmowca.getNazwaXML(),
 					dialog.getZnaczenie());
 			if (dialogNPC != null) {
-				// JeÅ›li jest to ZADANIE
+				// Jeœli jest to ZADANIE
 				if (dialog.getZnaczenie().equals("ZADANIE")) {
+					String czescNazwy = null;
+					System.out.println("Numer questa: "
+							+ rozmowca.getNumerQuesta());
+					switch (rozmowca.getNumerQuesta()) {
+					case 1:
+						czescNazwy = "dziekanatu";
+						break;
+					case 3:
+						czescNazwy = "szczur";
+						break;
+					}
 					boolean czyPosiada = false;
 					for (Quest aktQuest : bohater.getPosiadaneQuesty()) {
-						if (aktQuest.getNazwa().contains("dziekanatu"))
+						if (aktQuest.getNazwa().contains(czescNazwy))
 							czyPosiada = true;
 					}
 					if (!czyPosiada) {
-						frame.piszDialogi(nazwaRozmowcy + dialogNPC
-								+ "\n===Otrzymales nowe zadanie===");
-						bohater.getPosiadaneQuesty().add(new Quest(1));
+						frame.piszDialogi(nazwaRozmowcy + dialogNPC);
+						frame.pisz("\n===Otrzymales nowe zadanie===\n");
+						bohater.getPosiadaneQuesty().add(
+								new Quest(rozmowca.getNumerQuesta()));
 					}
 				} else if (dialog.getZnaczenie().contains("ODPOWIEDZ")) {
 					// Jeœli jest to ODPOWIEDZ na zagadkê™
@@ -387,6 +470,8 @@ public class Start {
 							numerPoziomu = 2;
 							gra();
 							wybierzMape(numerPoziomu);
+							bohater.getPosiadaneQuesty().add(new Quest(2));
+							frame.pisz("\n===Otrzymales nowe zadanie===\n");
 						}
 					}
 				} else
@@ -450,6 +535,9 @@ public class Start {
 			frame.pisz("*Znalaz³em siê w swiom gara¿u.\n*"
 					+ "Pora na skonstruowanie wehiku³u!\n\n");
 
+		} else if (numerPoziomu == 3) {
+			frame.pisz("'UDA£O SIÊ! Uda³o mi siê za³amaæ...\n"
+					+ "chwila...gdzie ja jestem?");
 		}
 	}
 

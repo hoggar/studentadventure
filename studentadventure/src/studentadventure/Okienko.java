@@ -24,7 +24,7 @@ public class Okienko extends JFrame {
 	private JTextField cmdField;
 	private JTextPane log;
 	private JScrollPane scrollPane;
-	private MapaPanel mapa;
+	private JPanel mapa;
 
 	private Font mainFont, dialogFont, descFont;
 	private StyledDocument doc;
@@ -80,6 +80,14 @@ public class Okienko extends JFrame {
 
 		log.setFont(mainFont);
 		setTitle("Student Adventure");
+	}
+	
+	public void setFightPanel() {
+		mapa = new walkaPanel();
+	}
+	
+	public void setMapaPanel() {
+		mapa = new MapaPanel();
 	}
 
 	public void pisz(String napis) {

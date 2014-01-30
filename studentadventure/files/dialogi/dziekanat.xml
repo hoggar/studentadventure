@@ -13,15 +13,9 @@
 	</dziekanat>
 
     <karczmarka>
-  		<ala>Pochwalony wędrowcze! Strawę podać, czy może wina?</ala>
-		<baba>Coż Cię sporwadza do tej mieściny? Skąd żeś tu przylazł?</baba>
-		<cyc>A więc szukasz Piekielnej Machiny?! Stoi o tam, na wzgórzu. Diabelstwo. Lepiej tam nie idź.</cyc>
-		<dada>Coż, machiny pilnuje Strażnik. Sędziwy to człowiek lecz o wielkiej sile. Ma jednak swoją słabość, lubi dobrze wypić.</dada> 
-		<elf>Jeśli wybijesz wszystkie szczury z tej piwnicy możesz zabrać butelkę wina</elf>
-		<git>Udało Ci się?</git>
-		<hak>Gratulacje, teraz idź drogą na północ, tam znajdziesz strażnika. Powodzenia!</hak>
-		<itam>Jeśli chcesz coś zjeść, zapraszam</itam>
-		<jak>Uważaj, żebyś nie rozbił butelek!</jak>
+  		<POWITANIE>Pochwalony wędrowcze! Strawę podać, czy może wina?</POWITANIE>
+		<ZADANIE>Jeśli wybijesz wszystkie szczury z tej piwnicy możesz zabrać butelkę wina</ZADANIE>
+		<ODPOWIEDZ>Gratulacje, teraz idź drogą na północ, tam znajdziesz strażnika. Powodzenia!</ODPOWIEDZ>
 	</karczmarka>
 
      <straznik>

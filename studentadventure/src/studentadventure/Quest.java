@@ -21,8 +21,21 @@ public class Quest {
 			this.dobraOdp.add("czlowiek");
 			this.dobraOdp.add("cz³owiek");
 			this.nagroda = new Przedmiot();
-			nagroda.setnazwa("Urlop DziekaÅ„ski");
-			nagroda.setopis("To jest zaÅ›wiadczenie o przyznanym urlopie dziekaÅ„skim. MoÅ¼na iÅ›Ä‡ do domu.");
+			nagroda.setnazwa("Urlop Dziekañski");
+			nagroda.setopis("To jest zaœwiadczenie o przyznanym urlopie dziekañskim. Mo¿na iœæ do domu.");
+			break;
+		case 2:
+			this.nazwa = "Budowa wehiku³u";
+			this.cel = "Zbierz wszystkie potrzebne czêœci do wehiku³u czasu. Gdy je zdobêdziesz podejdŸ do sto³u, usi¹dŸ i zbuduj wehiku³.";
+			this.czyZagadka = false;
+			break;
+		case 3:
+			this.nazwa = "Zabij gryzonia";
+			this.cel = "Karczmarka poprosi³a ciê o unicestwienie szczura. Zrób to szybko.";
+			this.czyZagadka = false;
+			this.nagroda = new Przedmiot();
+			nagroda.setnazwa("Drut");
+			nagroda.setopis("To jest metalowy drut. Prawdopodbnie stalowy. Powinien wystarczyæ do naprawy wehiku³u.");
 			break;
 		}
 	}

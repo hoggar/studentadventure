@@ -26,19 +26,14 @@ public class walkaPanel extends JPanel {
                 
                 Font hpFont = new Font("Verdana", Font.PLAIN, 15);
                 g2d.setFont(hpFont);
-                try {
-					heroImage = ImageIO.read(new File("C:\\Users\\Karolina\\Desktop\\grafikiGIF\\centaur.gif"));
-					monsterImage = ImageIO.read(new File("C:\\Users\\Karolina\\Desktop\\grafikiGIF\\karczmarkaa.gif"));
-					fight = ImageIO.read(new File("C:\\Users\\Karolina\\Desktop\\fight.png"));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+                heroImage = Start.bohater.fightImage;
+                monsterImage = Start.przeciwnik.getFightImage();
                 g2d.drawImage(heroImage, 15, 55, this);
                 g2d.drawImage(monsterImage, 200, 100, this);
                 g2d.drawImage(fight, 100, 130, this);
                 
-                String herohp = "HP: 150/200";
-                String monsterhp = "HP: 160/180";
+                String herohp = "HP: "+Start.bohater.getHpAkt()+"/"+Start.bohater.getHpMAX();
+                String monsterhp = "HP: "+Start.przeciwnik.getHpAkt()+"/"+Start.przeciwnik.getHpMAX();
                 
                 g2d.drawString(herohp, 10, 40);
                 g2d.drawString(monsterhp, 200, 80);

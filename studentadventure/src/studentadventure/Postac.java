@@ -1,10 +1,22 @@
 package studentadventure;
 
+import java.awt.Image;
+
 public abstract class Postac {
 	protected int x, y;
 	protected String nazwa; // nazwa
 	protected int hpMAX, hpAkt; // maksymalne punkty zycia
 	protected boolean walecznosc;
+	protected Image obrazekPostaci;
+	protected Image fightImage;
+	
+	public Image getObrazekPostaci() {
+		return obrazekPostaci;
+	}
+
+	public void setObrazekPostaci(Image obrazekPostaci) {
+		this.obrazekPostaci = obrazekPostaci;
+	}
 	
 	public boolean isWalecznosc() {
 		return walecznosc;
