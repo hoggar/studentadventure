@@ -260,7 +260,7 @@ public class Start {
 					if (sila_bohater > 0)
 						przeciwnik.setHpAkt(bohater.getHpAkt() - sila_bohater);
 					try {
-						Thread.sleep(50);
+						Thread.sleep(100);
 					} catch (InterruptedException ex) {
 						Thread.currentThread().interrupt();
 					}
