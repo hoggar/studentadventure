@@ -31,10 +31,12 @@ public class Start {
 	private static File plikPrzedmiotow;
 	private static List<Item> przedmioty;
 	public static Przeciwnik przeciwnik;
+	public static boolean czy_walka;
+
 
 	public static void main(String[] args) {
 		przedmioty = new LinkedList<Item>();
-		numerPoziomu = 1;
+		numerPoziomu = 3;
 		wybierzMape(numerPoziomu);
 		frame = new Okienko();
 		frame.setVisible(true);
@@ -238,27 +240,37 @@ public class Start {
 			Start.ruch(polecenie);
 			break;
 		case WALKA:
+			czy_walka = true;
+			//frame.repaint();
+			//frame.setMapaPanel();
 			if (czyJestPrzeciwnik()) {
-				frame.setFightPanel();
+				//frame.setFightPanel();
 				while (Start.bohater.getHpAkt() > 0
 						&& przeciwnik.getHpAkt() > 0) {
+					frame.mapa.paint(frame.mapa.getGraphics());
+					//System.out.println("*");
 					int sila_bohater = Start.bohater.getSila()
 							- przeciwnik.getObrona();
 					int sila_przeciwnik = przeciwnik.getAtak()
 							- Start.bohater.getWytrzymalosc();
-					frame.pisz(sila_bohater + " " + sila_przeciwnik + "WALCZE");
+					
 					if (sila_przeciwnik > 0)
 						Start.bohater.setHpAkt(bohater.getHpAkt()
 								- sila_przeciwnik);
 					if (sila_bohater > 0)
 						przeciwnik.setHpAkt(bohater.getHpAkt() - sila_bohater);
 					try {
-						Thread.sleep(500);
+						Thread.sleep(50);
 					} catch (InterruptedException ex) {
 						Thread.currentThread().interrupt();
 					}
+					frame.pisz(bohater.getHpAkt() + " " + przeciwnik.getHpAkt() + " WALCZE");
+					//System.out.println("przeciwnik:"+przeciwnik.getHpAkt());
+					//System.out.println("ziomek:"+bohater.getHpAkt());
 				}
-				frame.setMapaPanel();
+				czy_walka=false;
+				//frame.repaint();
+				//frame.setMapaPanel();
 			}
 			break;
 		case JESC:
@@ -521,6 +533,7 @@ public class Start {
 	 */
 	private static void gra() {
 		frame.czyscLog();
+		czy_walka=false;
 
 		if (numerPoziomu == 1) {
 

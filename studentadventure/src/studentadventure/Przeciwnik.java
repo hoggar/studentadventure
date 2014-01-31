@@ -17,7 +17,7 @@ public class Przeciwnik extends Postac {
 			nazwa="Szczur";
 			x=7;
 			y=8;
-			atak=5;
+			atak=15;
 			obrona=5;
 			hpAkt=50;
 			hpMAX=50;

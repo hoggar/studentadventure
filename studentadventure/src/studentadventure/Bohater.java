@@ -41,7 +41,7 @@ public class Bohater extends Postac {
 		sila = 50;
 		exp = 0;
 		inteligencja = 50;
-		wytrzymalosc = 50;
+		wytrzymalosc = 10;
 		charyzma = 50;
 		hpAkt = 100 + 10 * wytrzymalosc;
 		hpMAX = 100 + 10 * wytrzymalosc;

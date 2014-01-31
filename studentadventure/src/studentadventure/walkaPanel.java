@@ -17,7 +17,7 @@ public class walkaPanel extends JPanel {
         private static final int MAP_SIZE = 10;
         private static final int TILE_SIZE = 30;
         
-        public void paint(Graphics g) {
+       /* public void paint(Graphics g) {
                 Graphics2D g2d = (Graphics2D)g;
                 
                 Image heroImage = null;
@@ -37,5 +37,5 @@ public class walkaPanel extends JPanel {
                 
                 g2d.drawString(herohp, 10, 40);
                 g2d.drawString(monsterhp, 200, 80);
-        }
+        }*/
 }
