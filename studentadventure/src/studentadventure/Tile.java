@@ -399,25 +399,25 @@ public class Tile {
 						_opis = "Jakaœ œcie¿ka";
 						cMC = true;
 						_tlo = new File(
-								"./files/images/kafelki/laka/sciezka1.jpg");
+								"./files/images/kafelki/laka/s1.jpg");
 						break;
 					case 2:
 						_opis = "Ciekawe dok¹d prowadzi ta œcie¿ka";
 						cMC = true;
 						_tlo = new File(
-								"./files/images/kafelki/laka/sciezka2.jpg");
+								"./files/images/kafelki/laka/s2.jpg");
 						break;
 					case 3:
 						_opis = "Œcie¿ka";
 						cMC = true;
 						_tlo = new File(
-								"./files/images/kafelki/laka/sciezka3.jpg");
+								"./files/images/kafelki/laka/s3.jpg");
 						break;
 					case 4:
 						_opis = "Œcie¿ka";
 						cMC = true;
 						_tlo = new File(
-								"./files/images/kafelki/laka/sciazka4.jpg");
+								"./files/images/kafelki/laka/s4.jpg");
 						break;
 					case 5:
 						_opis = "Tu jest drzewo, pod którym ktoœ siedzi";

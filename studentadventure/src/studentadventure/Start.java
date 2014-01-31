@@ -33,10 +33,9 @@ public class Start {
 	public static Przeciwnik przeciwnik;
 	public static boolean czy_walka;
 
-
 	public static void main(String[] args) {
 		przedmioty = new LinkedList<Item>();
-		numerPoziomu = 3;
+		numerPoziomu = 1;
 		wybierzMape(numerPoziomu);
 		frame = new Okienko();
 		frame.setVisible(true);
@@ -145,6 +144,15 @@ public class Start {
 			plikDialogow = new File("./files/dialogi/dziekanat.xml");
 			wczytajZasoby(plikMapy, plikNPC);
 			break;
+		case 4:
+			bohater.setX(0);
+			bohater.setY(0);
+			przeciwnik = null;
+			plikNPC = null;
+			plikMapy = new File("./files/laka.map");
+			plikPrzedmiotow = null;
+			wczytajZasoby(plikMapy, plikNPC);
+			break;
 		}
 	}
 
@@ -241,36 +249,30 @@ public class Start {
 			break;
 		case WALKA:
 			czy_walka = true;
-			//frame.repaint();
-			//frame.setMapaPanel();
 			if (czyJestPrzeciwnik()) {
-				//frame.setFightPanel();
 				while (Start.bohater.getHpAkt() > 0
 						&& przeciwnik.getHpAkt() > 0) {
 					frame.mapa.paint(frame.mapa.getGraphics());
-					//System.out.println("*");
+					frame.mapa.repaint();
 					int sila_bohater = Start.bohater.getSila()
 							- przeciwnik.getObrona();
 					int sila_przeciwnik = przeciwnik.getAtak()
 							- Start.bohater.getWytrzymalosc();
-					
+
 					if (sila_przeciwnik > 0)
 						Start.bohater.setHpAkt(bohater.getHpAkt()
 								- sila_przeciwnik);
 					if (sila_bohater > 0)
 						przeciwnik.setHpAkt(bohater.getHpAkt() - sila_bohater);
 					try {
-						Thread.sleep(100);
+						Thread.sleep(150);
 					} catch (InterruptedException ex) {
 						Thread.currentThread().interrupt();
 					}
-					frame.pisz(bohater.getHpAkt() + " " + przeciwnik.getHpAkt() + " WALCZE");
-					//System.out.println("przeciwnik:"+przeciwnik.getHpAkt());
-					//System.out.println("ziomek:"+bohater.getHpAkt());
 				}
-				czy_walka=false;
-				//frame.repaint();
-				//frame.setMapaPanel();
+				bohater.getPosiadanePrzedmioty().add(przeciwnik.getNagroda());
+				frame.pisz("\n===OTRZYMALES NOWY PRZEDMIOT===\n");
+				czy_walka = false;
 			}
 			break;
 		case JESC:
@@ -486,6 +488,21 @@ public class Start {
 							frame.pisz("\n===Otrzymales nowe zadanie===\n");
 						}
 					}
+				} else if (dialog.getZnaczenie().contains("ZABOJSTWO")) {
+					boolean czyPosiada = false;
+					for (Przedmiot aktPrzedmiot : bohater
+							.getPosiadanePrzedmioty()) {
+						if (aktPrzedmiot.getnazwa().equalsIgnoreCase("Szczur")) {
+							czyPosiada = true;
+							break;
+						}
+					}
+					if (czyPosiada == true) {
+						if (bohater.getPosiadaneQuesty().size() >= 1)
+							bohater.getPosiadaneQuesty().remove(0);
+						numerPoziomu = 4;
+						wybierzMape(numerPoziomu);
+					}
 				} else
 					frame.piszDialogi(nazwaRozmowcy + dialogNPC); // Każdy inny
 				// przypadek
@@ -533,7 +550,7 @@ public class Start {
 	 */
 	private static void gra() {
 		frame.czyscLog();
-		czy_walka=false;
+		czy_walka = false;
 
 		if (numerPoziomu == 1) {
 

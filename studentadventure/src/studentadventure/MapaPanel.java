@@ -12,7 +12,6 @@ public class MapaPanel extends JPanel {
 	private static final int TILE_SIZE = 30;
 
 	public MapaPanel() {
-		System.out.println("bu2");
 		repaint();
 
 	}
@@ -48,7 +47,6 @@ public class MapaPanel extends JPanel {
 					Start.bohater.getX() * TILE_SIZE, Start.bohater.getY()
 							* TILE_SIZE, this);
 		} else {
-			System.out.println("rysuje");
 
 			Image heroImage = null;
 			Image monsterImage = null;

@@ -10,6 +10,8 @@ public class Przeciwnik extends Postac {
 	private int atak;
 	private int obrona;
 	private String opis;
+	private Przedmiot nagroda;
+	
 	
 	public Przeciwnik(int numerPrzeciwnika) {
 		switch(numerPrzeciwnika) {
@@ -27,10 +29,16 @@ public class Przeciwnik extends Postac {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			nagroda = new Przedmiot();
+			nagroda.setnazwa("Szczur");
+			nagroda.setopis("Masz martwego szczura. Dowód twojej odwagi i walecznoœci.");
 			break;
 		}
 	}
 	
+	public Przedmiot getNagroda() {
+		return nagroda;
+	}
 	
 	public int getIleDajeExp() {
 		return ileDajeExp;
